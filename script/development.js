@@ -31,8 +31,8 @@ class Utility {
         return location.row >= 0 && location.row < ROW && location.col >= 0 && location.col < COL;
     }
 
-    static isNotBlocked(grid, row, col) {
-        return grid[row][col] === 0 ? true : false;
+    static isNotBlocked(grid, location) {
+        return grid[location.row][location.col] === 0 ? true : false;
     }
 
     static isGoal(src, dest) {
