@@ -9,6 +9,7 @@ class TestUtility {
         this.test_isValidLocation_invalidLocations();
         this.test_isNotBlocked_blockedLocations();
         this.test_isGoal();
+        this.test_getHeuristicValue_manhattan();
     }
 
     static test_isValidLocation_invalidLocations() {
@@ -54,6 +55,26 @@ class TestUtility {
         src = new Location(5, 5);
         actual = Utility.isGoal(src, dest);
         assertEquals(expected, actual, this.test_isGoal);
+    }
+
+    static test_getHeuristicValue_manhattan() {
+        let expected = 0;
+        let src = new Location(0, 0);
+        let dest = new Location(0, 0);
+        let actual = Utility.getHeuristicValue("manhattan", src, dest);
+        assertEquals(expected, actual, this.test_getHeuristicValue_manhattan);
+
+        expected = 10;
+        src = new Location(0, 0);
+        dest = new Location(5, 5);
+        actual = Utility.getHeuristicValue("manhattan", src, dest);
+        assertEquals(expected, actual, this.test_getHeuristicValue_manhattan);
+
+        expected = 20;
+        src = new Location(0, 0);
+        dest = new Location(10, 10);
+        actual = Utility.getHeuristicValue("manhattan", src, dest);
+        assertEquals(expected, actual, this.test_getHeuristicValue_manhattan);
     }
 }
 
