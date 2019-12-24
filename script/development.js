@@ -79,6 +79,7 @@ function aStarSearch(grid, src, dest) {
             cells[i][j] = new Cell(-1, -1, INIT_VALUE, INIT_VALUE, INIT_VALUE);
         }
     }
+
     let i = src.row;
     let j = src.col;
     cells[i][j].goalDistToSuccessor = 0;
@@ -86,5 +87,12 @@ function aStarSearch(grid, src, dest) {
     cells[i][j].heuristicValue = 0;
     cells[i][j].pRow = i;
     cells[i][j].pCol = j;
+
     let openList = new Set();
+    openList.add(new MoveCost(0.0, new Location(0, 0)));
+
+    while (openList.size != 0) {
+        const currentNode = openList.values().next().value;
+        openList.delete(currentNode);
+    }
 }
