@@ -17,11 +17,12 @@ class MoveCost {
 }
 
 class Cell {
-    constructor(pRow, pCol, srcDistToSuccessor, goalDistToSuccessor) {
+    constructor(pRow, pCol, srcDistToSuccessor, goalDistToSuccessor, heuristicValue) {
         this.pRow = pRow;
         this.pCol = pCol;
         this.srcDistToSuccessor = srcDistToSuccessor;
         this.goalDistToSuccessor = goalDistToSuccessor;
+        this.heuristicValue = heuristicValue;
     }
 }
 
