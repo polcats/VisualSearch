@@ -11,3 +11,12 @@ class MoveCost {
         this.location = location;
     }
 }
+
+class Cell {
+    constructor(pRow, pCol, srcDistToSuccessor, goalDistToSuccessor) {
+        this.pRow = pRow;
+        this.pCol = pCol;
+        this.srcDistToSuccessor = srcDistToSuccessor;
+        this.goalDistToSuccessor = goalDistToSuccessor;
+    }
+}
