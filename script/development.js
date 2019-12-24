@@ -1,3 +1,6 @@
+const ROW = 10;
+const COL = 10;
+
 class Location {
     constructor(row, col) {
         this.row = row;
@@ -18,5 +21,15 @@ class Cell {
         this.pCol = pCol;
         this.srcDistToSuccessor = srcDistToSuccessor;
         this.goalDistToSuccessor = goalDistToSuccessor;
+    }
+}
+
+class Utility {
+    static isValidLocation(row, col) {
+        return row >= 0 && row < ROW && col >= 0 && col < COL;
+    }
+
+    static isNotBlocked(grid, row, col) {
+        return grid[row][col] == 0 ? true : false;
     }
 }
