@@ -30,6 +30,10 @@ class Utility {
     }
 
     static isNotBlocked(grid, row, col) {
-        return grid[row][col] == 0 ? true : false;
+        return grid[row][col] === 0 ? true : false;
+    }
+
+    static isGoal(src, dest) {
+        return src.row === dest.row && src.col === dest.col;
     }
 }
