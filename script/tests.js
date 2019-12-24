@@ -18,7 +18,6 @@ class TestUtility {
         let actual = 0;
 
         for (let i = 0; i < invalidLocations.length; ++i) {
-            // console.log(invalidLocations[i]);
             actual = Utility.isValidLocation(new Location(invalidLocations[i][0], invalidLocations[i][1]));
             assertEquals(expected, actual, this.test_isValidLocation_invalidLocations);
         }
