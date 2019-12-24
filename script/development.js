@@ -1,5 +1,6 @@
-var ROW = 10;
-var COL = 10;
+const ROW = 10;
+const COL = 10;
+const INIT_VALUE = 1000;
 
 class Location {
     constructor(row, col) {
