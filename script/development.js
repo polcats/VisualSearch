@@ -36,4 +36,12 @@ class Utility {
     static isGoal(src, dest) {
         return src.row === dest.row && src.col === dest.col;
     }
+
+    static getHeuristicValue(heuristic, src, dest) {
+        switch (heuristic) {
+            case "manhattan": {
+                return Math.abs(src.row - dest.row) + Math.abs(src.col - dest.col);
+            }
+        }
+    }
 }
