@@ -45,3 +45,20 @@ class Utility {
         }
     }
 }
+
+function aStarSearch(grid, src, dest) {
+    if (!Utility.isValidLocation(src) || !Utility.isValidLocation(dest)) {
+        console.log("Invalid source or destination.");
+        return false;
+    }
+
+    if (!Utility.isNotBlocked(grid, src) || !Utility.isNotBlocked(grid, dest)) {
+        console.log("Blocked source or destination.");
+        return false;
+    }
+
+    if (Utility.isGoal(src, dest)) {
+        console.log("Already at goal location.");
+        return false;
+    }
+}
