@@ -63,4 +63,12 @@ function aStarSearch(grid, src, dest) {
         console.log("Already at goal location.");
         return false;
     }
+
+    let closedList = new Array(ROW);
+    for (let i = 0; i < ROW; ++i) {
+        closedList[i] = new Array(COL);
+        for (let j = 0; j < COL; ++j) {
+            closedList[i][j] = 0;
+        }
+    }
 }
