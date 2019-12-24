@@ -38,7 +38,7 @@ class TestUtility {
 
         let actual = 0;
         for (let i = 0; i < blockedLocations.length; ++i) {
-            actual = Utility.isNotBlocked(grid, blockedLocations[i][0], blockedLocations[i][1]);
+            actual = Utility.isNotBlocked(grid, new Location(blockedLocations[i][0], blockedLocations[i][1]));
             assertEquals(expected, actual, this.test_isNotBlocked_blockedLocations);
         }
     }
