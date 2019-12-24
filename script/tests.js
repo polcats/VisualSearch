@@ -1,6 +1,7 @@
 function assertEquals(value1, value2, testName) {
     let result = value1 === value2 ? "PASSED" : "FAILED";
     console.log(result + ": " + testName.name);
+    console.log("  " + value1 + " === " + value2);
 }
 
 class TestUtility {
