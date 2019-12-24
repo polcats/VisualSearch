@@ -1,5 +1,5 @@
-const ROW = 10;
-const COL = 10;
+var ROW = 10;
+var COL = 10;
 
 class Location {
     constructor(row, col) {
