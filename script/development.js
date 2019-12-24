@@ -96,3 +96,13 @@ function aStarSearch(grid, src, dest) {
         openList.delete(currentNode);
     }
 }
+
+let aGrid = [
+    [0, 0, 0],
+    [0, 1, 0],
+    [0, 0, 0]
+];
+let aSrc = new Location(0, 0);
+let aDest = new Location(2, 2);
+
+aStarSearch(aGrid, aSrc, aDest);
