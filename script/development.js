@@ -25,8 +25,8 @@ class Cell {
 }
 
 class Utility {
-    static isValidLocation(row, col) {
-        return row >= 0 && row < ROW && col >= 0 && col < COL;
+    static isValidLocation(location) {
+        return location.row >= 0 && location.row < ROW && location.col >= 0 && location.col < COL;
     }
 
     static isNotBlocked(grid, row, col) {
