@@ -71,4 +71,12 @@ function aStarSearch(grid, src, dest) {
             closedList[i][j] = 0;
         }
     }
+
+    let cells = new Array(ROW);
+    for (let i = 0; i < ROW; ++i) {
+        cells[i] = new Array(COL);
+        for (let j = 0; j < COL; ++j) {
+            cells[i][j] = new Cell(-1, -1, INIT_VALUE, INIT_VALUE, INIT_VALUE);
+        }
+    }
 }
