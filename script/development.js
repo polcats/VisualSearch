@@ -79,4 +79,11 @@ function aStarSearch(grid, src, dest) {
             cells[i][j] = new Cell(-1, -1, INIT_VALUE, INIT_VALUE, INIT_VALUE);
         }
     }
+    let i = src.row;
+    let j = src.col;
+    cells[i][j].goalDistToSuccessor = 0;
+    cells[i][j].srcDistToSuccessor = 0;
+    cells[i][j].heuristicValue = 0;
+    cells[i][j].pRow = i;
+    cells[i][j].pCol = j;
 }
