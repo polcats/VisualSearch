@@ -86,4 +86,5 @@ function aStarSearch(grid, src, dest) {
     cells[i][j].heuristicValue = 0;
     cells[i][j].pRow = i;
     cells[i][j].pCol = j;
+    let openList = new Set();
 }
