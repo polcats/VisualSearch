@@ -8,6 +8,7 @@ class TestUtility {
     static run() {
         this.test_isValidLocation_invalidLocations();
         this.test_isNotBlocked_blockedLocations();
+        this.test_isGoal();
     }
 
     static test_isValidLocation_invalidLocations() {
@@ -40,6 +41,19 @@ class TestUtility {
             actual = Utility.isNotBlocked(grid, blockedLocations[i][0], blockedLocations[i][1]);
             assertEquals(expected, actual, this.test_isNotBlocked_blockedLocations);
         }
+    }
+
+    static test_isGoal() {
+        let expected = false;
+        let src = new Location(0, 0);
+        let dest = new Location(5, 5);
+        let actual = Utility.isGoal(src, dest);
+        assertEquals(expected, actual, this.test_isGoal);
+
+        expected = true;
+        src = new Location(5, 5);
+        actual = Utility.isGoal(src, dest);
+        assertEquals(expected, actual, this.test_isGoal);
     }
 }
 
