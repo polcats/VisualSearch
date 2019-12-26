@@ -88,12 +88,46 @@ function aStarSearch(grid, src, dest) {
     cells[i][j].pRow = i;
     cells[i][j].pCol = j;
 
-    let openList = new Set();
-    openList.add(new MoveCost(0.0, new Location(0, 0)));
+    let openList = new Set(); // MoveCost(cost, location)
+    openList.add(new MoveCost(0.0, new Location(i, j)));
 
+    let isGoalFound = false;
     while (openList.size != 0) {
+        console.log("while");
         const currentNode = openList.values().next().value;
         openList.delete(currentNode);
+
+        i = currentNode.location.row;
+        j = currentNode.location.col;
+        closedList[i][j] = true;
+
+        // North
+        if (Utility.isValidLocation(i - 1, j)) {
+            let north = new Location(i - 1, j);
+            let currentCell = cells[i - 1][j];
+            if (isGoal(north, dest)) {
+                isGoalFound = true;
+                currentCell.pRow = i;
+                currentCell.pCol = j;
+                console.log("The destination is found!");
+                // trace path here
+                return;
+            } else if (false == closedList[i - 1][j] && isNotBlocked(grid, north)) {
+                let newSrcDistToSuccessor = cells[i][j].srcDistToSuccessor + 1.0;
+                let newGoalDistToSuccessor = Utility.getHeuristicValue("manhattan", north, dest);
+                let newHeuristicValue = newSrcDistToSuccessor + newGoalDistToSuccessor;
+
+                if (INIT_VALUE == currentCell.heuristicValue || currentCell.heuristicValue > newHeuristicValue) {
+                    openList.add(new MoveCost(newHeuristicValue, new Location(i - 1, j)));
+
+                    currentCell.srcDistToSuccessor = newSrcDistToSuccessor;
+                    currentCell.goalDistToSuccessor = newGoalDistToSuccessor;
+                    currentCell.heuristicValue = newHeuristicValue;
+                    currentCell.pRow = i;
+                    currentCell.pCol = j;
+                }
+            }
+        }
     }
 }
 
