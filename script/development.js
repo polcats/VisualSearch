@@ -170,8 +170,8 @@ function aStarSearch(grid, src, dest) {
 
     if (false == isGoalFound) {
         console.log("Path to goal is impossible.");
-        return;
+        return false;
     }
 
-    Utility.tracePath(cells, dest);
+    return cells;
 }
