@@ -85,3 +85,27 @@ function resetAll() {
         }
     }
 }
+
+let $blocked = $(".table-cell").mousedown(function() {
+    if (!isAddingBlocks) {
+        return;
+    }
+
+    $(this).toggleClass("blocked");
+    let flag = $(this).hasClass("blocked");
+    let cellIndices = this.id.split("-");
+    aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
+    console.log(cellIndices);
+
+    $blocked.on("mouseenter.blocked", function() {
+        $(this).toggleClass("blocked", flag);
+
+        let cellIndices = this.id.split("-");
+        aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
+        console.log(cellIndices);
+    });
+});
+
+$(document).mouseup(function() {
+    $blocked.off("mouseenter.blocked");
+});
