@@ -15,6 +15,12 @@
     }
 })();
 
+let isAddingBlocks = false;
+function toggleAddBlocks() {
+    isAddingBlocks = false == isAddingBlocks ? true : false;
+    console.log(isAddingBlocks);
+}
+
 function setCellColor(location, color) {
     $("#" + location.row + "-" + location.col).addClass(color);
 }
