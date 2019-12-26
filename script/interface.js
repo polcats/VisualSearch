@@ -22,9 +22,9 @@ let aGrid = [
     [0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
-    [1, 1, 1, 0, 1, 1, 1, 0, 0, 0],
+    [1, 1, 1, 0, 1, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
 ];
@@ -40,10 +40,10 @@ let aGrid = [
     }
 })();
 
-let aSrc = new Location(0, 0);
+let aSrc = new Location(6, 0);
 let aDest = new Location(9, 9);
 
-let cells = aStarSearch(aGrid, aSrc, aDest, "euclidean");
+let cells = aStarSearch(aGrid, aSrc, aDest, "manhattan"); // euclidean
 
 if (cells) {
     Utility.tracePath(cells, aDest);
