@@ -95,8 +95,10 @@ function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedLis
                 currentCell.pRow = i;
                 currentCell.pCol = j;
             }
+            return false;
         }
     }
+    return false;
 }
 
 function aStarSearch(grid, src, dest, heuristic) {
@@ -194,7 +196,6 @@ function aStarSearch(grid, src, dest, heuristic) {
             }
         }
     }
-    console.log(isGoalFound);
 
     if (false == isGoalFound) {
         console.log("Path to goal is impossible.");
