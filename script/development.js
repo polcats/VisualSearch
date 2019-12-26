@@ -135,6 +135,20 @@ function aStarSearch(grid, src, dest) {
         if (getDirectionSuccessor(i, j, northDirection, dest, cells, openList, closedList, grid, isGoalFound)) {
             return;
         }
+
+        let southDirection = new Location(i + 1, j);
+        if (getDirectionSuccessor(i, j, southDirection, dest, cells, openList, closedList, grid, isGoalFound)) {
+            return;
+        }
+
+        let eastDirection = new Location(i, j + 1);
+        if (getDirectionSuccessor(i, j, eastDirection, dest, cells, openList, closedList, grid, isGoalFound)) {
+            return;
+        }
+
+        let westDirection = new Location(i, j - 1);
+        if (getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid, isGoalFound)) {
+            return;
         }
     }
 }
