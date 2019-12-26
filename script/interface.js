@@ -1,19 +1,28 @@
 (function generateCells() {
     for (let i = 0; i < ROW; ++i) {
-        let row = document.createElement("tr");
+        let row = $("<tr></tr>");
+
         for (let j = 0; j < COL; ++j) {
-            let col = document.createElement("td");
-            col.setAttribute("id", i + "-" + j);
-            col.innerHTML = i + ":" + j;
-            row.appendChild(col);
+            let col = $("<td></td>", {
+                id: i + "-" + j,
+                class: "table-cell"
+            }).text(i + ":" + j);
+
+            row.append(col);
         }
-        document.getElementById("cell-table").appendChild(row);
+
+        $("#cell-table").append(row);
     }
 })();
 
+let isAddingBlocks = false;
+function toggleAddBlocks() {
+    isAddingBlocks = false == isAddingBlocks ? true : false;
+    console.log(isAddingBlocks);
+}
+
 function setCellColor(location, color) {
-    let cell = document.getElementById(location.row + "-" + location.col);
-    cell.setAttribute("class", color);
+    $("#" + location.row + "-" + location.col).addClass(color);
 }
 
 let aGrid = [

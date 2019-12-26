@@ -6,7 +6,7 @@ function assertEquals(value1, value2, testName) {
         console.error(result + ": " + testName.name + "\n >> " + value1 + " === " + value2);
         return;
     }
-    console.log(result + ": " + testName.name);
+    // console.log(result + ": " + testName.name);
 }
 
 class TestUtility {
