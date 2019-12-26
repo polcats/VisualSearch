@@ -16,7 +16,12 @@
 let isAddingBlocks = false;
 function toggleAddBlocks() {
     isAddingBlocks = false == isAddingBlocks ? true : false;
-    console.log(isAddingBlocks);
+    if (isAddingBlocks) {
+        $("input#add-block").addClass("active-button");
+        return;
+    }
+
+    $("input#add-block").removeClass("active-button");
 }
 
 function setCellColor(location, color) {
