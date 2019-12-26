@@ -22,7 +22,7 @@ class TestUtility {
         let actual = 0;
 
         for (let i = 0; i < invalidPositions.length; ++i) {
-            actual = Utility.isValidPosition(new Position(invalidPositions[i][0], invalidPositions[i][1]));
+            actual = Utility.isValidPosition(new CellPosition(invalidPositions[i][0], invalidPositions[i][1]));
             assertEquals(expected, actual, this.test_isValidPosition_invalidPositions);
         }
     }
@@ -42,40 +42,40 @@ class TestUtility {
 
         let actual = 0;
         for (let i = 0; i < blockedPositions.length; ++i) {
-            actual = Utility.isNotBlocked(grid, new Position(blockedPositions[i][0], blockedPositions[i][1]));
+            actual = Utility.isNotBlocked(grid, new CellPosition(blockedPositions[i][0], blockedPositions[i][1]));
             assertEquals(expected, actual, this.test_isNotBlocked_blockedPositions);
         }
     }
 
     static test_isGoal() {
         let expected = false;
-        let src = new Position(0, 0);
-        let dest = new Position(5, 5);
+        let src = new CellPosition(0, 0);
+        let dest = new CellPosition(5, 5);
         let actual = Utility.isGoal(src, dest);
         assertEquals(expected, actual, this.test_isGoal);
 
         expected = true;
-        src = new Position(5, 5);
+        src = new CellPosition(5, 5);
         actual = Utility.isGoal(src, dest);
         assertEquals(expected, actual, this.test_isGoal);
     }
 
     static test_getHeuristicValue_manhattan() {
         let expected = 0;
-        let src = new Position(0, 0);
-        let dest = new Position(0, 0);
+        let src = new CellPosition(0, 0);
+        let dest = new CellPosition(0, 0);
         let actual = Utility.getHeuristicValue("manhattan", src, dest);
         assertEquals(expected, actual, this.test_getHeuristicValue_manhattan);
 
         expected = 10;
-        src = new Position(0, 0);
-        dest = new Position(5, 5);
+        src = new CellPosition(0, 0);
+        dest = new CellPosition(5, 5);
         actual = Utility.getHeuristicValue("manhattan", src, dest);
         assertEquals(expected, actual, this.test_getHeuristicValue_manhattan);
 
         expected = 20;
-        src = new Position(0, 0);
-        dest = new Position(10, 10);
+        src = new CellPosition(0, 0);
+        dest = new CellPosition(10, 10);
         actual = Utility.getHeuristicValue("manhattan", src, dest);
         assertEquals(expected, actual, this.test_getHeuristicValue_manhattan);
     }

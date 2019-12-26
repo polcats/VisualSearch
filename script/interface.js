@@ -31,8 +31,8 @@ function setCellColor(pos, color) {
     $("#" + pos.row + "-" + pos.col).addClass(color);
 }
 
-let aSrc = new Position(0, 0);
-let aDest = new Position(9, 9);
+let aSrc = new CellPosition(0, 0);
+let aDest = new CellPosition(9, 9);
 
 let aSrcIcon = $("<img />", {
     src: "images/icons/home.png",
@@ -66,7 +66,7 @@ let aGrid = [
 (function setBlockedCellsColor() {
     for (let i = 0; i < ROW; ++i) {
         for (let j = 0; j < COL; ++j) {
-            let currentPosition = new Position(i, j);
+            let currentPosition = new CellPosition(i, j);
             if (!Utility.isNotBlocked(aGrid, currentPosition)) {
                 setCellColor(currentPosition, "blocked");
             }
@@ -157,8 +157,8 @@ function drop(ev) {
     let cellIndices = parentId.split("-");
 
     if (currentIcon.id == "start-icon") {
-        aSrc = new Position(cellIndices[0], cellIndices[1]);
+        aSrc = new CellPosition(cellIndices[0], cellIndices[1]);
     } else if (currentIcon.id == "goal-icon") {
-        aDest = new Position(cellIndices[0], cellIndices[1]);
+        aDest = new CellPosition(cellIndices[0], cellIndices[1]);
     }
 }
