@@ -67,8 +67,10 @@ function aStarSearch(grid, src, dest) {
     let closedList = new Array(ROW);
     for (let i = 0; i < ROW; ++i) {
         closedList[i] = new Array(COL);
+        // console.log("\n");
         for (let j = 0; j < COL; ++j) {
-            closedList[i][j] = 0;
+            closedList[i][j] = false;
+            // console.log(closedList + " ");
         }
     }
 
