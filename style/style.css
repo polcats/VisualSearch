@@ -1,0 +1,39 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* #cell-container {
+    width: 100%;
+} */
+
+#cell-container #cell-table {
+    border-collapse: collapse;
+    margin: auto;
+}
+
+#cell-container #cell-table td {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #555;
+    text-align: center;
+}
+
+#cell-container #cell-table td.src {
+    background: green;
+}
+
+#cell-container #cell-table td.dest {
+    background: red;
+}
+
+#cell-container #cell-table td.path {
+    background: lightblue;
+}
+
+#cell-container #cell-table td.blocked {
+    background: grey;
+}
