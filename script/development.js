@@ -121,8 +121,8 @@ function aStarSearch(grid, src, dest) {
     openList.add(new MoveCost(0.0, new Location(i, j)));
 
     let isGoalFound = false;
-    while (openList.size != 0) {
-        console.log("while");
+    while (openList.size != 0 && !isGoalFound) {
+        // console.log("while");
         const currentNode = openList.values().next().value;
         openList.delete(currentNode);
 
