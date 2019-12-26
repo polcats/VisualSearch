@@ -76,11 +76,11 @@ function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedLis
         let currentCell = cells[direction.row][direction.col];
         if (Utility.isGoal(direction, dest)) {
             console.log("The destination is found!");
-            isGoalFound = true;
             currentCell.pRow = i;
             currentCell.pCol = j;
+            return true;
         } else if (false == closedList[direction.row][direction.col] && Utility.isNotBlocked(grid, direction)) {
-            console.log("New successor!");
+            // console.log("New successor!");
             let newSrcDistToSuccessor = cells[i][j].srcDistToSuccessor + 1.0;
             let newGoalDistToSuccessor = Utility.getHeuristicValue("manhattan", direction, dest);
             let newHeuristicValue = newSrcDistToSuccessor + newGoalDistToSuccessor;
