@@ -48,6 +48,33 @@ class Utility {
     }
 }
 
+function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, isGoalFound) {
+    if (Utility.isValidLocation(direction)) {
+        let currentCell = cells[direction.row][direction.col];
+        if (Utility.isGoal(direction, dest)) {
+            console.log("The destination is found!");
+            isGoalFound = true;
+            currentCell.pRow = i;
+            currentCell.pCol = j;
+        } else if (false == closedList[direction.row][direction.col] && Utility.isNotBlocked(grid, direction)) {
+            console.log("New successor!");
+            let newSrcDistToSuccessor = cells[i][j].srcDistToSuccessor + 1.0;
+            let newGoalDistToSuccessor = Utility.getHeuristicValue("manhattan", direction, dest);
+            let newHeuristicValue = newSrcDistToSuccessor + newGoalDistToSuccessor;
+
+            if (INIT_VALUE == currentCell.heuristicValue || currentCell.heuristicValue > newHeuristicValue) {
+                openList.add(new MoveCost(newHeuristicValue, direction));
+
+                currentCell.srcDistToSuccessor = newSrcDistToSuccessor;
+                currentCell.goalDistToSuccessor = newGoalDistToSuccessor;
+                currentCell.heuristicValue = newHeuristicValue;
+                currentCell.pRow = i;
+                currentCell.pCol = j;
+            }
+        }
+    }
+}
+
 function aStarSearch(grid, src, dest) {
     if (!Utility.isValidLocation(src) || !Utility.isValidLocation(dest)) {
         console.log("Invalid source or destination.");
