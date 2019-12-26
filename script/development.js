@@ -47,6 +47,9 @@ class Utility {
             case "euclidean": {
                 return Math.sqrt(Math.pow(src.row - dest.row, 2) + Math.pow(src.col - dest.col, 2));
             }
+            case "diagonal": {
+                return Math.max(Math.abs(src.row - dest.row), Math.abs(src.col - dest.col));
+            }
         }
     }
     static tracePath(cells, dest) {
@@ -169,7 +172,7 @@ function aStarSearch(grid, src, dest, heuristic) {
             break;
         }
 
-        if ("euclidean" == heuristic) {
+        if ("manhattan" != heuristic) {
             let northEastDirection = new Location(i - 1, j + 1);
             if ((isGoalFound = getDirectionSuccessor(i, j, northEastDirection, dest, cells, openList, closedList, grid, heuristic))) {
                 break;
