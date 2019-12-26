@@ -168,6 +168,28 @@ function aStarSearch(grid, src, dest, heuristic) {
         if ((isGoalFound = getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid, heuristic))) {
             break;
         }
+
+        if ("euclidean" == heuristic) {
+            let northEastDirection = new Location(i - 1, j + 1);
+            if ((isGoalFound = getDirectionSuccessor(i, j, northEastDirection, dest, cells, openList, closedList, grid, heuristic))) {
+                break;
+            }
+
+            let northWestDirection = new Location(i - 1, j - 1);
+            if ((isGoalFound = getDirectionSuccessor(i, j, northWestDirection, dest, cells, openList, closedList, grid, heuristic))) {
+                break;
+            }
+
+            let southEastDirection = new Location(i + 1, j + 1);
+            if ((isGoalFound = getDirectionSuccessor(i, j, southEastDirection, dest, cells, openList, closedList, grid, heuristic))) {
+                break;
+            }
+
+            let southWestDirection = new Location(i + 1, j - 1);
+            if ((isGoalFound = getDirectionSuccessor(i, j, southWestDirection, dest, cells, openList, closedList, grid, heuristic))) {
+                break;
+            }
+        }
     }
     console.log(isGoalFound);
 
