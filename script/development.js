@@ -46,6 +46,25 @@ class Utility {
             }
         }
     }
+    static tracePath(cells, dest) {
+        let row = dest.row;
+        let col = dest.col;
+
+        let path = [];
+        while (!(cells[row][col].pRow == row && cells[row][col].pCol == col)) {
+            path.push(new Location(row, col));
+            let row_tmp = cells[row][col].pRow;
+            let col_tmp = cells[row][col].pCol;
+            row = row_tmp;
+            col = col_tmp;
+        }
+        path.push(new Location(row, col));
+
+        while (path.length) {
+            let loc = path.pop();
+            console.log("[" + loc.row + "," + loc.col + "]");
+        }
+    }
 }
 
 function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, isGoalFound) {
