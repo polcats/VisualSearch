@@ -62,7 +62,7 @@ class Utility {
 
         while (path.length) {
             let loc = path.pop();
-            console.log("[" + loc.row + "," + loc.col + "]");
+            setCellColor(loc, "path");
         }
     }
 }
