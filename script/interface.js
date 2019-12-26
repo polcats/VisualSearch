@@ -1,13 +1,11 @@
 (function generateCells() {
     for (let i = 0; i < ROW; ++i) {
         let row = $("<tr></tr>");
-
         for (let j = 0; j < COL; ++j) {
             let col = $("<td></td>", {
                 id: i + "-" + j,
                 class: "table-cell"
-            }).text(i + ":" + j);
-
+            });
             row.append(col);
         }
 
