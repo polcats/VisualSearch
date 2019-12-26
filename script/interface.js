@@ -1,13 +1,14 @@
 (function generateCells() {
     for (let i = 0; i < ROW; ++i) {
         let row = $("<tr></tr>");
-
         for (let j = 0; j < COL; ++j) {
             let col = $("<td></td>", {
                 id: i + "-" + j,
-                class: "table-cell"
-            }).text(i + ":" + j);
-
+                class: "table-cell",
+                ondrop: "drop(event)",
+                ondragover: "allowDrop(event)",
+                draggable: "false"
+            });
             row.append(col);
         }
 
@@ -18,24 +19,48 @@
 let isAddingBlocks = false;
 function toggleAddBlocks() {
     isAddingBlocks = false == isAddingBlocks ? true : false;
-    console.log(isAddingBlocks);
+    if (isAddingBlocks) {
+        $("input#add-block").addClass("active-button");
+        return;
+    }
+
+    $("input#add-block").removeClass("active-button");
 }
 
 function setCellColor(location, color) {
     $("#" + location.row + "-" + location.col).addClass(color);
 }
 
+let aSrc = new Location(0, 0);
+let aDest = new Location(9, 9);
+
+let aSrcIcon = $("<img />", {
+    src: "images/icons/home.png",
+    draggable: "true",
+    ondragstart: "drag(event, 'start')",
+    id: "start-icon"
+});
+$("td#0-0").append(aSrcIcon);
+
+let aDestIcon = $("<img />", {
+    src: "images/icons/flags.png",
+    draggable: "true",
+    ondragstart: "drag(event, 'goal')",
+    id: "goal-icon"
+});
+$("td#9-9").append(aDestIcon);
+
 let aGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
-    [1, 1, 1, 0, 1, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
 (function setBlockedCellsColor() {
@@ -49,14 +74,91 @@ let aGrid = [
     }
 })();
 
-let aSrc = new Location(6, 0);
-let aDest = new Location(9, 9);
+function findPath() {
+    clearPaths();
 
-let cells = aStarSearch(aGrid, aSrc, aDest, "manhattan"); // euclidean
-
-if (cells) {
-    Utility.tracePath(cells, aDest);
+    let cells = aStarSearch(aGrid, aSrc, aDest, "manhattan");
+    if (cells != false) {
+        Utility.tracePath(cells, aDest);
+    }
 }
 
-setCellColor(aSrc, "src");
-setCellColor(aDest, "dest");
+function clearPaths() {
+    $("td.path").removeClass("path");
+}
+
+function clearBlocks() {
+    $("td.blocked").removeClass("blocked");
+}
+
+function resetAll() {
+    clearPaths();
+    clearBlocks();
+    isAddingBlocks = false;
+    $("input#add-block").removeClass("active-button");
+
+    for (let i = 0; i < ROW; ++i) {
+        for (let j = 0; j < COL; ++j) {
+            aGrid[i][j] = 0;
+        }
+    }
+}
+
+let $blocked = $(".table-cell").mousedown(function() {
+    if (!isAddingBlocks) {
+        return;
+    }
+
+    $(this).toggleClass("blocked");
+    let flag = $(this).hasClass("blocked");
+    let cellIndices = this.id.split("-");
+    aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
+    console.log(cellIndices);
+
+    $blocked.on("mouseenter.blocked", function() {
+        $(this).toggleClass("blocked", flag);
+
+        let cellIndices = this.id.split("-");
+        aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
+        console.log(cellIndices);
+    });
+});
+
+$(document).mouseup(function() {
+    $blocked.off("mouseenter.blocked");
+});
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+let currentDragged = "";
+function updateDragged(id) {
+    currentDragged = id;
+}
+
+function drag(ev, id) {
+    currentDragged = id;
+    ev.dataTransfer.setData(id, ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData(currentDragged);
+    let currentIcon = document.getElementById(data);
+
+    if (null === currentIcon) {
+        return;
+    }
+
+    ev.target.appendChild(currentIcon);
+
+    let parentId = currentIcon.parentNode.id;
+    let cellIndices = parentId.split("-");
+
+    if (currentIcon.id == "start-icon") {
+        aSrc = new Location(cellIndices[0], cellIndices[1]);
+    } else if (currentIcon.id == "goal-icon") {
+        aDest = new Location(cellIndices[0], cellIndices[1]);
+    }
+}

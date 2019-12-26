@@ -6,6 +6,22 @@
     padding: 0;
 }
 
+#menu-container {
+    margin: auto;
+    text-align: center;
+}
+
+input[type="button"] {
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 5px;
+}
+
+input[type="button"].active-button {
+    background: #222;
+    color: #fff;
+}
+
 #cell-container {
     position: relative;
     width: 100%;
@@ -20,6 +36,8 @@
     border-collapse: collapse;
     margin: auto;
     vertical-align: sub;
+    width: 500px;
+    height: 500px;
 }
 
 #cell-container #cell-table td {
@@ -42,5 +60,5 @@
 }
 
 #cell-container #cell-table td.blocked {
-    background: grey;
+    background: url(../images/icons/brickwall.png) center center no-repeat;
 }
