@@ -29,11 +29,11 @@
     text-align: center;
 }
 
-#cell-container #cell-table td.src {
+#cell-container #cell-table td.table-cell.src {
     background: green;
 }
 
-#cell-container #cell-table td.dest {
+#cell-container #cell-table td.table-cell.dest {
     background: red;
 }
 
