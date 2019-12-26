@@ -96,7 +96,7 @@ function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedLis
     }
 }
 
-function aStarSearch(grid, src, dest) {
+function aStarSearch(grid, src, dest, algo) {
     if (!Utility.isValidLocation(src) || !Utility.isValidLocation(dest)) {
         console.log("Invalid source or destination.");
         return false;
