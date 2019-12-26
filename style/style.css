@@ -58,5 +58,5 @@ input[type="button"].active-button {
 }
 
 #cell-container #cell-table td.blocked {
-    background: grey;
+    background: url(../images/icons/brickwall.png) center center no-repeat;
 }
