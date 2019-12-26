@@ -67,11 +67,7 @@ class Utility {
     }
 }
 
-function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, isGoalFound) {
-    if (isGoalFound) {
-        return isGoalFound;
-    }
-
+function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid) {
     if (Utility.isValidLocation(direction)) {
         let currentCell = cells[direction.row][direction.col];
         if (Utility.isGoal(direction, dest)) {
@@ -155,19 +151,28 @@ function aStarSearch(grid, src, dest) {
 
         // Direction Successors
         let northDirection = new Location(i - 1, j);
-        isGoalFound = getDirectionSuccessor(i, j, northDirection, dest, cells, openList, closedList, grid, isGoalFound);
+        if ((isGoalFound = getDirectionSuccessor(i, j, northDirection, dest, cells, openList, closedList, grid))) {
+            break;
+        }
 
         let southDirection = new Location(i + 1, j);
-        isGoalFound = getDirectionSuccessor(i, j, southDirection, dest, cells, openList, closedList, grid, isGoalFound);
+        if ((isGoalFound = getDirectionSuccessor(i, j, southDirection, dest, cells, openList, closedList, grid))) {
+            break;
+        }
 
         let eastDirection = new Location(i, j + 1);
-        isGoalFound = getDirectionSuccessor(i, j, eastDirection, dest, cells, openList, closedList, grid, isGoalFound);
+        if ((isGoalFound = getDirectionSuccessor(i, j, eastDirection, dest, cells, openList, closedList, grid))) {
+            break;
+        }
 
         let westDirection = new Location(i, j - 1);
-        isGoalFound = getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid, isGoalFound);
+        if ((isGoalFound = getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid))) {
+            break;
+        }
     }
+    console.log(isGoalFound);
 
-    if (!isGoalFound) {
+    if (false == isGoalFound) {
         console.log("Path to goal is impossible.");
         return;
     }
