@@ -44,6 +44,9 @@ class Utility {
             case "manhattan": {
                 return Math.abs(src.row - dest.row) + Math.abs(src.col - dest.col);
             }
+            case "euclidean": {
+                return Math.sqrt(Math.pow(src.row - dest.row, 2) + Math.pow(src.col - dest.col, 2));
+            }
         }
     }
     static tracePath(cells, dest) {
