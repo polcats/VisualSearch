@@ -9,8 +9,9 @@
 
     <body>
         <div id="menu-container">
-            <input type="button" value="Find Path" onclick="findPath()" />
-            <input type="button" value="Add Blocks" onclick="toggleAddBlocks()" />
+            <input id="find-path" type="button" value="Find Path" onclick="findPath()" />
+            <input id="add-block" type="button" value="Add Blocks" onclick="toggleAddBlocks()" />
+            <input id="reset-all" type="button" value="Reset" onclick="resetAll()" />
         </div>
         <div id="cell-container"><table id="cell-table"></table></div>
         <script src="script/interface.js"></script>
