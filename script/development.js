@@ -155,25 +155,24 @@ function aStarSearch(grid, src, dest) {
 
         // Direction Successors
         let northDirection = new Location(i - 1, j);
-        if (getDirectionSuccessor(i, j, northDirection, dest, cells, openList, closedList, grid, isGoalFound)) {
-            return;
-        }
+        isGoalFound = getDirectionSuccessor(i, j, northDirection, dest, cells, openList, closedList, grid, isGoalFound);
 
         let southDirection = new Location(i + 1, j);
-        if (getDirectionSuccessor(i, j, southDirection, dest, cells, openList, closedList, grid, isGoalFound)) {
-            return;
-        }
+        isGoalFound = getDirectionSuccessor(i, j, southDirection, dest, cells, openList, closedList, grid, isGoalFound);
 
         let eastDirection = new Location(i, j + 1);
-        if (getDirectionSuccessor(i, j, eastDirection, dest, cells, openList, closedList, grid, isGoalFound)) {
-            return;
-        }
+        isGoalFound = getDirectionSuccessor(i, j, eastDirection, dest, cells, openList, closedList, grid, isGoalFound);
 
         let westDirection = new Location(i, j - 1);
-        if (getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid, isGoalFound)) {
-            return;
-        }
+        isGoalFound = getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid, isGoalFound);
     }
+
+    if (!isGoalFound) {
+        console.log("Path to goal is impossible.");
+        return;
+    }
+
+    Utility.tracePath(cells, dest);
 }
 
 let aGrid = [
