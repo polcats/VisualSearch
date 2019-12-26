@@ -28,18 +28,23 @@ function setCellColor(location, color) {
     $("#" + location.row + "-" + location.col).addClass(color);
 }
 
+let aSrc = new Location(6, 0);
+let aDest = new Location(9, 9);
 let aGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
-    [1, 1, 1, 0, 1, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
+
+setCellColor(aSrc, "src");
+setCellColor(aDest, "dest");
 
 (function setBlockedCellsColor() {
     for (let i = 0; i < ROW; ++i) {
@@ -52,14 +57,16 @@ let aGrid = [
     }
 })();
 
-let aSrc = new Location(6, 0);
-let aDest = new Location(9, 9);
+function findPath() {
+    clearPaths();
 
-let cells = aStarSearch(aGrid, aSrc, aDest, "manhattan"); // euclidean
-
-if (cells) {
-    Utility.tracePath(cells, aDest);
+    let cells = aStarSearch(aGrid, aSrc, aDest, "manhattan");
+    if (cells != false) {
+        Utility.tracePath(cells, aDest);
+    }
 }
 
-setCellColor(aSrc, "src");
-setCellColor(aDest, "dest");
+function clearPaths() {
+    $("td.path").removeClass("path");
+}
+
