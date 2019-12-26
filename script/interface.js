@@ -27,12 +27,12 @@ function toggleAddBlocks() {
     $("input#add-block").removeClass("active-button");
 }
 
-function setCellColor(location, color) {
-    $("#" + location.row + "-" + location.col).addClass(color);
+function setCellColor(pos, color) {
+    $("#" + pos.row + "-" + pos.col).addClass(color);
 }
 
-let aSrc = new Location(0, 0);
-let aDest = new Location(9, 9);
+let aSrc = new Position(0, 0);
+let aDest = new Position(9, 9);
 
 let aSrcIcon = $("<img />", {
     src: "images/icons/home.png",
@@ -66,9 +66,9 @@ let aGrid = [
 (function setBlockedCellsColor() {
     for (let i = 0; i < ROW; ++i) {
         for (let j = 0; j < COL; ++j) {
-            let currentLocation = new Location(i, j);
-            if (!Utility.isNotBlocked(aGrid, currentLocation)) {
-                setCellColor(currentLocation, "blocked");
+            let currentPosition = new Position(i, j);
+            if (!Utility.isNotBlocked(aGrid, currentPosition)) {
+                setCellColor(currentPosition, "blocked");
             }
         }
     }
@@ -157,8 +157,8 @@ function drop(ev) {
     let cellIndices = parentId.split("-");
 
     if (currentIcon.id == "start-icon") {
-        aSrc = new Location(cellIndices[0], cellIndices[1]);
+        aSrc = new Position(cellIndices[0], cellIndices[1]);
     } else if (currentIcon.id == "goal-icon") {
-        aDest = new Location(cellIndices[0], cellIndices[1]);
+        aDest = new Position(cellIndices[0], cellIndices[1]);
     }
 }
