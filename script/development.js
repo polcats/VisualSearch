@@ -76,7 +76,6 @@ function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedLis
             currentCell.pCol = j;
             return true;
         } else if (false == closedList[direction.row][direction.col] && Utility.isNotBlocked(grid, direction)) {
-            // console.log("New successor!");
             let newSrcDistToSuccessor = cells[i][j].srcDistToSuccessor + 1.0;
             let newGoalDistToSuccessor = Utility.getHeuristicValue("manhattan", direction, dest);
             let newHeuristicValue = newSrcDistToSuccessor + newGoalDistToSuccessor;
@@ -113,10 +112,8 @@ function aStarSearch(grid, src, dest) {
     let closedList = new Array(ROW);
     for (let i = 0; i < ROW; ++i) {
         closedList[i] = new Array(COL);
-        // console.log("\n");
         for (let j = 0; j < COL; ++j) {
             closedList[i][j] = false;
-            // console.log(closedList + " ");
         }
     }
 
@@ -141,7 +138,6 @@ function aStarSearch(grid, src, dest) {
 
     let isGoalFound = false;
     while (openList.size != 0 && !isGoalFound) {
-        // console.log("while");
         const currentNode = openList.values().next().value;
         openList.delete(currentNode);
 
