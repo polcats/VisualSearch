@@ -19,14 +19,14 @@ function setCellColor(location, color) {
 let aGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+    [1, 1, 1, 0, 1, 1, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
 ];
 
 (function setBlockedCellsColor() {
@@ -40,10 +40,10 @@ let aGrid = [
     }
 })();
 
-let aSrc = new Location(2, 3);
+let aSrc = new Location(0, 0);
 let aDest = new Location(9, 9);
 
-let cells = aStarSearch(aGrid, aSrc, aDest);
+let cells = aStarSearch(aGrid, aSrc, aDest, "euclidean");
 
 if (cells) {
     Utility.tracePath(cells, aDest);
