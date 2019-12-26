@@ -1,3 +1,7 @@
+import { ROW, COL, CellPosition, Utility } from "./utilities.mjs";
+import { Algorithms } from "./algorithms.mjs";
+import { toggleAddBlocks, clearPaths, clearBlocks, allowDrop, currentDragged, drag } from "./interface.mjs";
+
 (function generateCells() {
     for (let i = 0; i < ROW; ++i) {
         let row = $("<tr></tr>");
@@ -5,8 +9,6 @@
             let col = $("<td></td>", {
                 id: i + "-" + j,
                 class: "table-cell",
-                ondrop: "drop(event)",
-                ondragover: "allowDrop(event)",
                 draggable: "false"
             });
             row.append(col);
@@ -16,20 +18,13 @@
     }
 })();
 
-let isAddingBlocks = false;
-function toggleAddBlocks() {
-    isAddingBlocks = false == isAddingBlocks ? true : false;
-    if (isAddingBlocks) {
-        $("input#add-block").addClass("active-button");
-        return;
-    }
+$(".table-cell").on("drop", function() {
+    drop(event);
+});
 
-    $("input#add-block").removeClass("active-button");
-}
-
-function setCellColor(pos, color) {
-    $("#" + pos.row + "-" + pos.col).addClass(color);
-}
+$(".table-cell").on("dragover", function() {
+    allowDrop(event);
+});
 
 let aSrc = new CellPosition(0, 0);
 let aDest = new CellPosition(9, 9);
@@ -37,7 +32,6 @@ let aDest = new CellPosition(9, 9);
 let aSrcIcon = $("<img />", {
     src: "images/icons/home.png",
     draggable: "true",
-    ondragstart: "drag(event, 'start')",
     id: "start-icon"
 });
 $("td#0-0").append(aSrcIcon);
@@ -45,10 +39,15 @@ $("td#0-0").append(aSrcIcon);
 let aDestIcon = $("<img />", {
     src: "images/icons/flags.png",
     draggable: "true",
-    ondragstart: "drag(event, 'goal')",
     id: "goal-icon"
 });
 $("td#9-9").append(aDestIcon);
+$("#start-icon").on("dragstart", function() {
+    drag(event, "start");
+});
+$("#goal-icon").on("dragstart", function() {
+    drag(event, "goal");
+});
 
 let aGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -63,49 +62,8 @@ let aGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-(function setBlockedCellsColor() {
-    for (let i = 0; i < ROW; ++i) {
-        for (let j = 0; j < COL; ++j) {
-            let currentPosition = new CellPosition(i, j);
-            if (!Utility.isNotBlocked(aGrid, currentPosition)) {
-                setCellColor(currentPosition, "blocked");
-            }
-        }
-    }
-})();
-
-function findPath() {
-    clearPaths();
-
-    let cells = aStarSearch(aGrid, aSrc, aDest, "manhattan");
-    if (cells != false) {
-        Utility.tracePath(cells, aDest);
-    }
-}
-
-function clearPaths() {
-    $("td.path").removeClass("path");
-}
-
-function clearBlocks() {
-    $("td.blocked").removeClass("blocked");
-}
-
-function resetAll() {
-    clearPaths();
-    clearBlocks();
-    isAddingBlocks = false;
-    $("input#add-block").removeClass("active-button");
-
-    for (let i = 0; i < ROW; ++i) {
-        for (let j = 0; j < COL; ++j) {
-            aGrid[i][j] = 0;
-        }
-    }
-}
-
 let $blocked = $(".table-cell").mousedown(function() {
-    if (!isAddingBlocks) {
+    if (!$("input#add-block").hasClass("active-button")) {
         return;
     }
 
@@ -128,19 +86,17 @@ $(document).mouseup(function() {
     $blocked.off("mouseenter.blocked");
 });
 
-function allowDrop(ev) {
-    ev.preventDefault();
-}
+$("#find-path").on("click", function() {
+    findPath();
+});
 
-let currentDragged = "";
-function updateDragged(id) {
-    currentDragged = id;
-}
+$("#add-block").on("click", function() {
+    toggleAddBlocks();
+});
 
-function drag(ev, id) {
-    currentDragged = id;
-    ev.dataTransfer.setData(id, ev.target.id);
-}
+$("#reset-all").on("click", function() {
+    resetAll();
+});
 
 function drop(ev) {
     ev.preventDefault();
@@ -160,5 +116,26 @@ function drop(ev) {
         aSrc = new CellPosition(cellIndices[0], cellIndices[1]);
     } else if (currentIcon.id == "goal-icon") {
         aDest = new CellPosition(cellIndices[0], cellIndices[1]);
+    }
+}
+
+function findPath() {
+    clearPaths();
+
+    let cells = Algorithms.aStarSearch(aGrid, aSrc, aDest, "manhattan");
+    if (cells != false) {
+        Utility.tracePath(cells, aDest);
+    }
+}
+
+function resetAll() {
+    clearPaths();
+    clearBlocks();
+    $("input#add-block").removeClass("active-button");
+
+    for (let i = 0; i < ROW; ++i) {
+        for (let j = 0; j < COL; ++j) {
+            aGrid[i][j] = 0;
+        }
     }
 }

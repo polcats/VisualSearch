@@ -3,17 +3,19 @@
         <title>Search Algorithm Visualization</title>
         <link rel="stylesheet" href="style/style.css" />
         <script src="script/jquery-3.4.1.min.js"></script>
-        <script src="script/development.js"></script>
-        <script src="script/tests.js"></script>
+        <!-- <script src="script/algorithms.js"></script>
+        <script src="script/utilities.js"></script>
+        <script src="script/tests.js"></script> -->
     </head>
 
     <body>
         <div id="menu-container">
-            <input id="find-path" type="button" value="Find Path" onclick="findPath()" />
-            <input id="add-block" type="button" value="Add Blocks" onclick="toggleAddBlocks()" />
-            <input id="reset-all" type="button" value="Reset" onclick="resetAll()" />
+            <input id="find-path" type="button" value="Find Path" />
+            <input id="add-block" type="button" value="Add Blocks" />
+            <input id="reset-all" type="button" value="Reset" />
         </div>
         <div id="cell-container"><table id="cell-table"></table></div>
-        <script src="script/interface.js"></script>
+        <script type="module" src="script/index.mjs"></script>
+        <!-- <script src="script/interface.js"></script> -->
     </body>
 </html>

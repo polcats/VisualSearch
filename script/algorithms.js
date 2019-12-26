@@ -1,3 +1,0 @@
-class Algorithms {}
-
-// christmas commit!
