@@ -4,8 +4,8 @@ const INIT_VALUE = 1000;
 
 class Location {
     constructor(row, col) {
-        this.row = row;
-        this.col = col;
+        this.row = parseInt(row);
+        this.col = parseInt(col);
     }
 }
 
