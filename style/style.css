@@ -6,6 +6,11 @@
     padding: 0;
 }
 
+#menu-container {
+    margin: auto;
+    text-align: center;
+}
+
 input[type="button"] {
     border: 1px solid #000;
     padding: 10px;
