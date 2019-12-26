@@ -68,6 +68,10 @@ class Utility {
 }
 
 function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, isGoalFound) {
+    if (isGoalFound) {
+        return isGoalFound;
+    }
+
     if (Utility.isValidLocation(direction)) {
         let currentCell = cells[direction.row][direction.col];
         if (Utility.isGoal(direction, dest)) {
