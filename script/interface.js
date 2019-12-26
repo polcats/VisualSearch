@@ -70,3 +70,18 @@ function clearPaths() {
     $("td.path").removeClass("path");
 }
 
+function clearBlocks() {
+    $("td.blocked").removeClass("blocked");
+}
+
+function resetAll() {
+    clearPaths();
+    clearBlocks();
+    toggleAddBlocks();
+
+    for (let i = 0; i < ROW; ++i) {
+        for (let j = 0; j < COL; ++j) {
+            aGrid[i][j] = 0;
+        }
+    }
+}
