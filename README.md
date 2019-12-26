@@ -1,6 +1,8 @@
 # VisualSearch
 A visualization of searching algorithms.
 
+Currently an initial barebones implementation.
+
 
 ## Algorithms
 
