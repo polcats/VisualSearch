@@ -70,7 +70,7 @@ class Utility {
     }
 }
 
-function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid) {
+function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, heuristic) {
     if (Utility.isValidLocation(direction)) {
         let currentCell = cells[direction.row][direction.col];
         if (Utility.isGoal(direction, dest)) {
@@ -80,7 +80,7 @@ function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedLis
             return true;
         } else if (false == closedList[direction.row][direction.col] && Utility.isNotBlocked(grid, direction)) {
             let newSrcDistToSuccessor = cells[i][j].srcDistToSuccessor + 1.0;
-            let newGoalDistToSuccessor = Utility.getHeuristicValue("manhattan", direction, dest);
+            let newGoalDistToSuccessor = Utility.getHeuristicValue(heuristic, direction, dest);
             let newHeuristicValue = newSrcDistToSuccessor + newGoalDistToSuccessor;
 
             if (INIT_VALUE == currentCell.heuristicValue || currentCell.heuristicValue > newHeuristicValue) {
@@ -96,7 +96,7 @@ function getDirectionSuccessor(i, j, direction, dest, cells, openList, closedLis
     }
 }
 
-function aStarSearch(grid, src, dest, algo) {
+function aStarSearch(grid, src, dest, heuristic) {
     if (!Utility.isValidLocation(src) || !Utility.isValidLocation(dest)) {
         console.log("Invalid source or destination.");
         return false;
@@ -136,7 +136,7 @@ function aStarSearch(grid, src, dest, algo) {
     cells[i][j].pRow = i;
     cells[i][j].pCol = j;
 
-    let openList = new Set(); // MoveCost(cost, location)
+    let openList = new Set();
     openList.add(new MoveCost(0.0, new Location(i, j)));
 
     let isGoalFound = false;
@@ -150,22 +150,22 @@ function aStarSearch(grid, src, dest, algo) {
 
         // Direction Successors
         let northDirection = new Location(i - 1, j);
-        if ((isGoalFound = getDirectionSuccessor(i, j, northDirection, dest, cells, openList, closedList, grid))) {
+        if ((isGoalFound = getDirectionSuccessor(i, j, northDirection, dest, cells, openList, closedList, grid, heuristic))) {
             break;
         }
 
         let southDirection = new Location(i + 1, j);
-        if ((isGoalFound = getDirectionSuccessor(i, j, southDirection, dest, cells, openList, closedList, grid))) {
+        if ((isGoalFound = getDirectionSuccessor(i, j, southDirection, dest, cells, openList, closedList, grid, heuristic))) {
             break;
         }
 
         let eastDirection = new Location(i, j + 1);
-        if ((isGoalFound = getDirectionSuccessor(i, j, eastDirection, dest, cells, openList, closedList, grid))) {
+        if ((isGoalFound = getDirectionSuccessor(i, j, eastDirection, dest, cells, openList, closedList, grid, heuristic))) {
             break;
         }
 
         let westDirection = new Location(i, j - 1);
-        if ((isGoalFound = getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid))) {
+        if ((isGoalFound = getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid, heuristic))) {
             break;
         }
     }
