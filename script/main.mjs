@@ -2,7 +2,7 @@ import { ROW, COL, CellPosition } from "./utilities.mjs";
 import { Interactions } from "./interactions.mjs";
 
 let aSrc = new CellPosition(0, 0);
-let aDest = new CellPosition(9, 9);
+let aDest = new CellPosition(ROW - 1, COL - 1);
 let aGrid = [];
 (function initGrid() {
     for (let i = 0; i < ROW; ++i) {
