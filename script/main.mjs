@@ -70,14 +70,6 @@ let aGrid = [
         $blocked.off("mouseenter.blocked");
     });
 
-    $("#start-icon").on("dragstart", function() {
-        Interactions.drag(event, "start");
-    });
-
-    $("#goal-icon").on("dragstart", function() {
-        Interactions.drag(event, "goal");
-    });
-
     $(".table-cell")
         .on("drop", function() {
             let result = Interactions.drop(event);
@@ -96,6 +88,22 @@ let aGrid = [
         .on("mousedown", function() {
             return Interactions.isDraggable(this);
         });
+
+    $("#start-icon").on("dragstart", function() {
+        if ($("input#add-block").hasClass("active-button")) {
+            return false;
+        }
+
+        Interactions.drag(event, "start");
+    });
+
+    $("#goal-icon").on("dragstart", function() {
+        if ($("input#add-block").hasClass("active-button")) {
+            return false;
+        }
+
+        Interactions.drag(event, "goal");
+    });
 
     $("#find-path").on("click", function() {
         Interactions.findPath(aGrid, aSrc, aDest, "manhattan");
