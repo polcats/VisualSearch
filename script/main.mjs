@@ -38,9 +38,6 @@ let aGrid = [
         id: "start-icon"
     });
     $("td#0-0").append(aSrcIcon);
-    $("#start-icon").on("dragstart", function() {
-        Interactions.drag(event, "start");
-    });
 
     let aDestIcon = $("<img />", {
         src: "images/icons/flags.png",
@@ -48,9 +45,6 @@ let aGrid = [
         id: "goal-icon"
     });
     $("td#9-9").append(aDestIcon);
-    $("#goal-icon").on("dragstart", function() {
-        Interactions.drag(event, "goal");
-    });
 })();
 
 (function setElementEvents() {
@@ -74,6 +68,14 @@ let aGrid = [
 
     $(document).mouseup(function() {
         $blocked.off("mouseenter.blocked");
+    });
+
+    $("#start-icon").on("dragstart", function() {
+        Interactions.drag(event, "start");
+    });
+
+    $("#goal-icon").on("dragstart", function() {
+        Interactions.drag(event, "goal");
     });
 
     $(".table-cell")
