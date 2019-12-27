@@ -14,6 +14,11 @@ let aGrid = [];
 })();
 
 (function generateCells() {
+    $("#cell-table").css({
+        width: COL * 50 + "px",
+        height: ROW * 50 + "px"
+    });
+
     for (let i = 0; i < ROW; ++i) {
         let row = $("<tr></tr>");
         for (let j = 0; j < COL; ++j) {
