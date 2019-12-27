@@ -1,6 +1,5 @@
-import { ROW, COL, CellPosition, Utility } from "./utilities.mjs";
-import { Algorithms } from "./algorithms.mjs";
-import { toggleAddBlocks, clearPaths, clearBlocks, allowDrop, currentDragged, drag, isDraggable } from "./interface.mjs";
+import { ROW, COL, CellPosition } from "./utilities.mjs";
+import { Interactions } from "./interface.mjs";
 
 let aSrc = new CellPosition(0, 0);
 let aDest = new CellPosition(9, 9);
@@ -40,7 +39,7 @@ let aGrid = [
     });
     $("td#0-0").append(aSrcIcon);
     $("#start-icon").on("dragstart", function() {
-        drag(event, "start");
+        Interactions.drag(event, "start");
     });
 
     let aDestIcon = $("<img />", {
@@ -50,7 +49,7 @@ let aGrid = [
     });
     $("td#9-9").append(aDestIcon);
     $("#goal-icon").on("dragstart", function() {
-        drag(event, "goal");
+        Interactions.drag(event, "goal");
     });
 })();
 
@@ -64,14 +63,12 @@ let aGrid = [
         let flag = $(this).hasClass("blocked");
         let cellIndices = this.id.split("-");
         aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
-        console.log(cellIndices);
 
         $blocked.on("mouseenter.blocked", function() {
             $(this).toggleClass("blocked", flag);
 
             let cellIndices = this.id.split("-");
             aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
-            console.log(cellIndices);
         });
     });
 
@@ -81,24 +78,32 @@ let aGrid = [
 
     $(".table-cell")
         .on("drop", function() {
-            drop(event);
+            let result = Interactions.drop(event);
+
+            if (result.length) {
+                if ("start-icon" == result[0]) {
+                    aSrc = result[1];
+                } else if ("goal-icon" == result[0]) {
+                    aDest = result[1];
+                }
+            }
         })
         .on("dragover", function() {
-            allowDrop(event);
+            Interactions.allowDrop(event);
         })
         .on("mousedown", function() {
-            return isDraggable(this);
+            return Interactions.isDraggable(this);
         });
 
     $("#find-path").on("click", function() {
-        findPath();
+        Interactions.findPath(aGrid, aSrc, aDest, "manhattan");
     });
 
     $("#add-block").on("click", function() {
-        toggleAddBlocks();
+        Interactions.toggleAddBlocks();
     });
 
     $("#reset-all").on("click", function() {
-        resetAll();
+        Interactions.resetAll(aGrid);
     });
 })();
