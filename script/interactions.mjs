@@ -4,6 +4,10 @@ import { ROW, COL, CellPosition, Utility } from "./utilities.mjs";
 class Interactions {
     static toggleAddBlocks() {
         $("input#add-block").toggleClass("active-button");
+
+        if ($("input#add-block").hasClass("active-button")) {
+            this.clearPaths();
+        }
     }
 
     static clearPaths() {

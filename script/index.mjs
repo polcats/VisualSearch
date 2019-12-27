@@ -1,5 +1,5 @@
 import { ROW, COL, CellPosition } from "./utilities.mjs";
-import { Interactions } from "./interface.mjs";
+import { Interactions } from "./interactions.mjs";
 
 let aSrc = new CellPosition(0, 0);
 let aDest = new CellPosition(9, 9);
