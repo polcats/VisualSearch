@@ -1,3 +1,5 @@
+import { ROW, COL, Utility, CellPosition } from "./utilities.mjs";
+
 function assertEquals(value1, value2, testName) {
     let result = value1 === value2 ? "PASSED" : "FAILED";
 
