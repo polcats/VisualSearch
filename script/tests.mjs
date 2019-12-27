@@ -12,10 +12,12 @@ function assertEquals(value1, value2, testName) {
 
 class TestUtility {
     static run() {
+        console.log("Running Tests");
         this.test_isValidPosition_invalidPositions();
         this.test_isNotBlocked_blockedPositions();
         this.test_isGoal();
         this.test_getHeuristicValue_manhattan();
+        console.log("Done");
     }
 
     static test_isValidPosition_invalidPositions() {
