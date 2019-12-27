@@ -39,14 +39,14 @@ let aGrid = [];
         draggable: "true",
         id: "start-icon"
     });
-    $("td#0-0").append(aSrcIcon);
+    $("td#" + aSrc.row + "-" + aSrc.col).append(aSrcIcon);
 
     let aDestIcon = $("<img />", {
         src: "images/icons/flags.png",
         draggable: "true",
         id: "goal-icon"
     });
-    $("td#9-9").append(aDestIcon);
+    $("td#" + aDest.row + "-" + aDest.col).append(aDestIcon);
 })();
 
 (function setElementEvents() {
