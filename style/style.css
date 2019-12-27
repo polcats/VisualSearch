@@ -36,8 +36,6 @@ input[type="button"].active-button {
     border-collapse: collapse;
     margin: auto;
     vertical-align: sub;
-    width: 500px;
-    height: 500px;
 }
 
 #cell-container #cell-table td {

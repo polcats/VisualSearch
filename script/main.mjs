@@ -2,21 +2,24 @@ import { ROW, COL, CellPosition } from "./utilities.mjs";
 import { Interactions } from "./interactions.mjs";
 
 let aSrc = new CellPosition(0, 0);
-let aDest = new CellPosition(9, 9);
-let aGrid = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
+let aDest = new CellPosition(ROW - 1, COL - 1);
+let aGrid = [];
+
+(function initGrid() {
+    for (let i = 0; i < ROW; ++i) {
+        aGrid[i] = new Array(COL);
+        for (let j = 0; j < COL; ++j) {
+            aGrid[i][j] = 0;
+        }
+    }
+})();
 
 (function generateCells() {
+    $("#cell-table").css({
+        width: COL * 50 + "px",
+        height: ROW * 50 + "px"
+    });
+
     for (let i = 0; i < ROW; ++i) {
         let row = $("<tr></tr>");
         for (let j = 0; j < COL; ++j) {
@@ -37,20 +40,14 @@ let aGrid = [
         draggable: "true",
         id: "start-icon"
     });
-    $("td#0-0").append(aSrcIcon);
-    $("#start-icon").on("dragstart", function() {
-        Interactions.drag(event, "start");
-    });
+    $("td#" + aSrc.row + "-" + aSrc.col).append(aSrcIcon);
 
     let aDestIcon = $("<img />", {
         src: "images/icons/flags.png",
         draggable: "true",
         id: "goal-icon"
     });
-    $("td#9-9").append(aDestIcon);
-    $("#goal-icon").on("dragstart", function() {
-        Interactions.drag(event, "goal");
-    });
+    $("td#" + aDest.row + "-" + aDest.col).append(aDestIcon);
 })();
 
 (function setElementEvents() {
@@ -93,7 +90,26 @@ let aGrid = [
         })
         .on("mousedown", function() {
             return Interactions.isDraggable(this);
+        })
+        .on("contextmenu", function() {
+            return false;
         });
+
+    $("#start-icon").on("dragstart", function() {
+        if ($("input#add-block").hasClass("active-button")) {
+            return false;
+        }
+
+        Interactions.drag(event, "start");
+    });
+
+    $("#goal-icon").on("dragstart", function() {
+        if ($("input#add-block").hasClass("active-button")) {
+            return false;
+        }
+
+        Interactions.drag(event, "goal");
+    });
 
     $("#find-path").on("click", function() {
         Interactions.findPath(aGrid, aSrc, aDest, "manhattan");
