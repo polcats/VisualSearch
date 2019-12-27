@@ -1,54 +1,9 @@
 import { ROW, COL, CellPosition, Utility } from "./utilities.mjs";
 import { Algorithms } from "./algorithms.mjs";
-import { toggleAddBlocks, clearPaths, clearBlocks, allowDrop, currentDragged, drag } from "./interface.mjs";
-
-(function generateCells() {
-    for (let i = 0; i < ROW; ++i) {
-        let row = $("<tr></tr>");
-        for (let j = 0; j < COL; ++j) {
-            let col = $("<td></td>", {
-                id: i + "-" + j,
-                class: "table-cell",
-                draggable: "false"
-            });
-            row.append(col);
-        }
-
-        $("#cell-table").append(row);
-    }
-})();
-
-$(".table-cell").on("drop", function() {
-    drop(event);
-});
-
-$(".table-cell").on("dragover", function() {
-    allowDrop(event);
-});
+import { toggleAddBlocks, clearPaths, clearBlocks, allowDrop, currentDragged, drag, isDraggable } from "./interface.mjs";
 
 let aSrc = new CellPosition(0, 0);
 let aDest = new CellPosition(9, 9);
-
-let aSrcIcon = $("<img />", {
-    src: "images/icons/home.png",
-    draggable: "true",
-    id: "start-icon"
-});
-$("td#0-0").append(aSrcIcon);
-
-let aDestIcon = $("<img />", {
-    src: "images/icons/flags.png",
-    draggable: "true",
-    id: "goal-icon"
-});
-$("td#9-9").append(aDestIcon);
-$("#start-icon").on("dragstart", function() {
-    drag(event, "start");
-});
-$("#goal-icon").on("dragstart", function() {
-    drag(event, "goal");
-});
-
 let aGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -62,41 +17,91 @@ let aGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-let $blocked = $(".table-cell").mousedown(function() {
-    if (!$("input#add-block").hasClass("active-button")) {
-        return;
+(function generateCells() {
+    for (let i = 0; i < ROW; ++i) {
+        let row = $("<tr></tr>");
+        for (let j = 0; j < COL; ++j) {
+            let col = $("<td></td>", {
+                id: i + "-" + j,
+                class: "table-cell"
+            });
+            row.append(col);
+        }
+
+        $("#cell-table").append(row);
     }
+})();
 
-    $(this).toggleClass("blocked");
-    let flag = $(this).hasClass("blocked");
-    let cellIndices = this.id.split("-");
-    aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
-    console.log(cellIndices);
+(function placeStartAndGoalIcons() {
+    let aSrcIcon = $("<img />", {
+        src: "images/icons/home.png",
+        draggable: "true",
+        id: "start-icon"
+    });
+    $("td#0-0").append(aSrcIcon);
+    $("#start-icon").on("dragstart", function() {
+        drag(event, "start");
+    });
 
-    $blocked.on("mouseenter.blocked", function() {
-        $(this).toggleClass("blocked", flag);
+    let aDestIcon = $("<img />", {
+        src: "images/icons/flags.png",
+        draggable: "true",
+        id: "goal-icon"
+    });
+    $("td#9-9").append(aDestIcon);
+    $("#goal-icon").on("dragstart", function() {
+        drag(event, "goal");
+    });
+})();
 
+(function setElementEvents() {
+    let $blocked = $(".table-cell").mousedown(function() {
+        if (!$("input#add-block").hasClass("active-button")) {
+            return;
+        }
+
+        $(this).toggleClass("blocked");
+        let flag = $(this).hasClass("blocked");
         let cellIndices = this.id.split("-");
         aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
         console.log(cellIndices);
+
+        $blocked.on("mouseenter.blocked", function() {
+            $(this).toggleClass("blocked", flag);
+
+            let cellIndices = this.id.split("-");
+            aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
+            console.log(cellIndices);
+        });
     });
-});
 
-$(document).mouseup(function() {
-    $blocked.off("mouseenter.blocked");
-});
+    $(document).mouseup(function() {
+        $blocked.off("mouseenter.blocked");
+    });
 
-$("#find-path").on("click", function() {
-    findPath();
-});
+    $(".table-cell")
+        .on("drop", function() {
+            drop(event);
+        })
+        .on("dragover", function() {
+            allowDrop(event);
+        })
+        .on("mousedown", function() {
+            return isDraggable(this);
+        });
 
-$("#add-block").on("click", function() {
-    toggleAddBlocks();
-});
+    $("#find-path").on("click", function() {
+        findPath();
+    });
 
-$("#reset-all").on("click", function() {
-    resetAll();
-});
+    $("#add-block").on("click", function() {
+        toggleAddBlocks();
+    });
+
+    $("#reset-all").on("click", function() {
+        resetAll();
+    });
+})();
 
 function drop(ev) {
     ev.preventDefault();
@@ -128,14 +133,17 @@ function findPath() {
     }
 }
 
-function resetAll() {
-    clearPaths();
-    clearBlocks();
-    $("input#add-block").removeClass("active-button");
-
+function clearGrid() {
     for (let i = 0; i < ROW; ++i) {
         for (let j = 0; j < COL; ++j) {
             aGrid[i][j] = 0;
         }
     }
+}
+
+function resetAll() {
+    clearPaths();
+    clearBlocks();
+    $("input#add-block").removeClass("active-button");
+    clearGrid();
 }
