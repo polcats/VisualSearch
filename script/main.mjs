@@ -3,18 +3,15 @@ import { Interactions } from "./interactions.mjs";
 
 let aSrc = new CellPosition(0, 0);
 let aDest = new CellPosition(9, 9);
-let aGrid = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
+let aGrid = [];
+(function initGrid() {
+    for (let i = 0; i < ROW; ++i) {
+        aGrid[i] = new Array(COL);
+        for (let j = 0; j < COL; ++j) {
+            aGrid[i][j] = 0;
+        }
+    }
+})();
 
 (function generateCells() {
     for (let i = 0; i < ROW; ++i) {
