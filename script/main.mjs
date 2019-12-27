@@ -14,7 +14,7 @@ let aGrid = [];
     }
 })();
 
-(function generateCells() {
+(function generateTableCells() {
     $("#cell-table").css({
         width: COL * 50 + "px",
         height: ROW * 50 + "px"
@@ -51,6 +51,7 @@ let aGrid = [];
 })();
 
 (function setElementEvents() {
+    // Adding blocks
     let $blocked = $(".table-cell").mousedown(function() {
         if (!$("input#add-block").hasClass("active-button")) {
             return;
@@ -73,6 +74,7 @@ let aGrid = [];
         $blocked.off("mouseenter.blocked");
     });
 
+    // Icon drag-and-drop
     $(".table-cell")
         .on("drop", function() {
             let result = Interactions.drop(event);
@@ -111,6 +113,7 @@ let aGrid = [];
         Interactions.drag(event, "goal");
     });
 
+    // Buttons
     $("#find-path").on("click", function() {
         Interactions.findPath(aGrid, aSrc, aDest, "manhattan");
     });
