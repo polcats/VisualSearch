@@ -44,7 +44,8 @@ let aGrid = [];
         class: "drag-icon",
         src: "images/icons/start.png",
         draggable: "true",
-        id: "start-icon"
+        id: "start-icon",
+        title: "Drag me!"
     });
     $("td#" + aSrc.row + "-" + aSrc.col).append(aSrcIcon);
 
@@ -52,7 +53,8 @@ let aGrid = [];
         class: "drag-icon",
         src: "images/icons/finish.png",
         draggable: "true",
-        id: "goal-icon"
+        id: "goal-icon",
+        title: "Drag me!"
     });
     $("td#" + aDest.row + "-" + aDest.col).append(aDestIcon);
 })();
@@ -122,7 +124,7 @@ let aGrid = [];
 
     // Buttons
     $("#find-path").on("click", function() {
-        Interactions.findPath(aGrid, aSrc, aDest, "manhattan");
+        Interactions.findPath(aGrid, aSrc, aDest, "euclidean");
     });
 
     $("#add-block").on("click", function() {

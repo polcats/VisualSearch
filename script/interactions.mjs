@@ -3,15 +3,25 @@ import { ROW, COL, CellPosition, Utility } from "./utilities.mjs";
 
 class Interactions {
     static toggleAddBlocks() {
-        $("input#add-block").toggleClass("active-button");
+        this.clearPaths();
 
-        if ($("input#add-block").hasClass("active-button")) {
+        let addBlockActive = $("input#add-block")
+            .toggleClass("active-button")
+            .hasClass("active-button");
+
+        if (addBlockActive) {
             this.clearPaths();
+            $("#find-path").attr("disabled", "disabled");
+
+            return;
         }
+
+        $("#find-path").removeAttr("disabled");
     }
 
     static clearPaths() {
-        $("td.path").removeClass("path");
+        $(".table-cell").removeClass("path route");
+        Utility.stopTrace();
     }
 
     static clearBlocks() {
@@ -37,6 +47,8 @@ class Interactions {
     }
 
     static drop(ev) {
+        this.clearPaths();
+
         ev.preventDefault();
         let data = ev.dataTransfer.getData(this.currentDragged);
         let currentIcon = document.getElementById(data);
@@ -64,9 +76,10 @@ class Interactions {
     static findPath(aGrid, aSrc, aDest, heuristic) {
         this.clearPaths();
 
-        let cells = Algorithms.aStarSearch(aGrid, aSrc, aDest, heuristic);
-        if (cells != false) {
-            Utility.tracePath(cells, aDest);
+        let result = Algorithms.aStarSearch(aGrid, aSrc, aDest, heuristic);
+
+        if (result != false) {
+            Utility.tracePath(result, aDest);
         }
     }
 
@@ -79,10 +92,12 @@ class Interactions {
     }
 
     static resetAll(aGrid) {
+        Utility.stopTrace();
         this.clearGrid(aGrid);
         this.clearPaths();
         this.clearBlocks();
         $("input#add-block").removeClass("active-button");
+        $("#find-path").removeAttr("disabled");
     }
 }
 

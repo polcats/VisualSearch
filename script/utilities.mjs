@@ -57,7 +57,10 @@ class Utility {
         $("#" + pos.row + "-" + pos.col).addClass(color);
     }
 
+    static traceRoute = [];
     static tracePath(cells, dest) {
+        this.traceRoute = [];
+
         let row = dest.row;
         let col = dest.col;
 
@@ -70,11 +73,32 @@ class Utility {
             col = col_tmp;
         }
         path.push(new CellPosition(row, col));
+        trace(path);
 
-        while (path.length) {
-            let loc = path.pop();
-            Utility.setCellColor(loc, "path");
+        function trace(path) {
+            if (!path.length) {
+                $(".route")
+                    .addClass("path")
+                    .removeClass("route");
+                return;
+            }
+
+            Utility.setCellColor(path.pop(), "route");
+
+            Utility.traceRoute.push(
+                setTimeout(function() {
+                    trace(path);
+                }, 100)
+            );
         }
+    }
+
+    static stopTrace() {
+        for (let i = 0; i < this.traceRoute.length; ++i) {
+            clearTimeout(this.traceRoute[i]);
+        }
+
+        $(".table-cell").removeClass("route");
     }
 
     static getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, heuristic) {
