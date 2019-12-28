@@ -83,14 +83,18 @@ body {
         vertical-align: sub;
 
         .table-cell {
-            width: 50px;
-            height: 50px;
+            padding: 5px;
             border: 1px solid #555;
             text-align: center;
+
+            .drag-icon {
+                width: 100%;
+                height: 100%;
+            }
         }
 
         .path {
-            background: #77c9d4;
+            background: yellowgreen;
         }
         .blocked {
             background: url(../images/icons/brick.png) center center no-repeat;
