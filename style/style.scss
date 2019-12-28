@@ -8,7 +8,7 @@
 
 body {
     display: grid;
-    background: #222;
+    background: #eee;
     width: 100vw;
     height: 100vh;
     grid-template-areas: "menu" "container";
@@ -48,12 +48,10 @@ body {
             min-height: 50px;
             border-radius: 10px;
             margin-right: 10px;
-            // opacity: 0.7;
         }
 
         #{$button}:hover {
             background: greenyellow;
-            // opacity: 1;
             color: #000;
             transition: background 0.3s;
         }
@@ -92,10 +90,10 @@ body {
         }
 
         .path {
-            background: #111;
+            background: #77c9d4;
         }
         .blocked {
-            background: url(../images/icons/brickwall.png) center center no-repeat;
+            background: url(../images/icons/brick.png) center center no-repeat;
         }
     }
 }

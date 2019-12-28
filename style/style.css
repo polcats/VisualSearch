@@ -10,7 +10,7 @@
 body {
   display: -ms-grid;
   display: grid;
-  background: #222;
+  background: #eee;
   width: 100vw;
   height: 100vh;
       grid-template-areas: "menu" "container";
@@ -99,10 +99,10 @@ body #cell-table {
 }
 
 #cell-container #cell-table .path {
-  background: #111;
+  background: #77c9d4;
 }
 
 #cell-container #cell-table .blocked {
-  background: url(../images/icons/brickwall.png) center center no-repeat;
+  background: url(../images/icons/brick.png) center center no-repeat;
 }
 /*# sourceMappingURL=style.css.map */
