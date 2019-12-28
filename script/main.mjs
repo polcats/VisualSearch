@@ -124,7 +124,7 @@ let aGrid = [];
 
     // Buttons
     $("#find-path").on("click", function() {
-        Interactions.findPath(aGrid, aSrc, aDest, "manhattan");
+        Interactions.findPath(aGrid, aSrc, aDest, "euclidean");
     });
 
     $("#add-block").on("click", function() {
