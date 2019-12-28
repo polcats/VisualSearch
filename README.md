@@ -26,8 +26,10 @@ Currently an initial barebones implementation.
 
 <ul>
 <li>[ ] Add warning message if no path is found.</li>
-<li>[ ] Add animation while search is ongoing.</li>
-<li>[ ] Add selection for heuristic to be used.</li>
+<li>[ ] Add selection for which heuristic is going to be used.</li>
+<li>[ ] Add animation for actual search.</li>
+<li>[x] Limit interactions on certain states.</li>
+<li>[x] Add path tracing animation.</li>
 <li>[x] Add UI style.</li>
 <li>[x] Update icons.</li>
 </ul>
