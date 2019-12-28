@@ -65,12 +65,14 @@ body #cell-table {
 }
 
 #menu-container #buttons input[type='button'].active-button {
-  background: #222;
-  color: #fff;
+  background: greenyellow;
+  color: #000;
 }
 
-#menu-container #buttons input[type='button'].disabled {
+#menu-container #buttons input[type='button'][disabled] {
   cursor: not-allowed;
+  color: #222;
+  opacity: 0.5;
 }
 
 #cell-container {
@@ -100,6 +102,15 @@ body #cell-table {
 #cell-container #cell-table .table-cell .drag-icon {
   width: 100%;
   height: 100%;
+  cursor: pointer;
+}
+
+#cell-container #cell-table .option {
+  background: green;
+}
+
+#cell-container #cell-table .route {
+  background: skyblue;
 }
 
 #cell-container #cell-table .path {
