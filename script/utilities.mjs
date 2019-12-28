@@ -1,5 +1,5 @@
-const ROW = 11;
-const COL = 15;
+const ROW = 9;
+const COL = 9;
 const INIT_VALUE = 1000;
 
 class CellPosition {

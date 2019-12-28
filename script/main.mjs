@@ -1,6 +1,8 @@
 import { ROW, COL, CellPosition } from "./utilities.mjs";
 import { Interactions } from "./interactions.mjs";
 
+const cellDimension = 70;
+
 let aSrc = new CellPosition(0, 0);
 let aDest = new CellPosition(ROW - 1, COL - 1);
 let aGrid = [];
@@ -16,8 +18,8 @@ let aGrid = [];
 
 (function generateTableCells() {
     $("#cell-table").css({
-        width: COL * 50 + "px",
-        height: ROW * 50 + "px"
+        width: COL * cellDimension + "px",
+        height: ROW * cellDimension + "px"
     });
 
     for (let i = 0; i < ROW; ++i) {
@@ -26,6 +28,9 @@ let aGrid = [];
             let col = $("<td></td>", {
                 id: i + "-" + j,
                 class: "table-cell"
+            }).css({
+                width: cellDimension + "px",
+                height: cellDimension + "px"
             });
             row.append(col);
         }
@@ -36,14 +41,16 @@ let aGrid = [];
 
 (function placeStartAndGoalIcons() {
     let aSrcIcon = $("<img />", {
-        src: "images/icons/home.png",
+        class: "drag-icon",
+        src: "images/icons/start.png",
         draggable: "true",
         id: "start-icon"
     });
     $("td#" + aSrc.row + "-" + aSrc.col).append(aSrcIcon);
 
     let aDestIcon = $("<img />", {
-        src: "images/icons/flags.png",
+        class: "drag-icon",
+        src: "images/icons/finish.png",
         draggable: "true",
         id: "goal-icon"
     });
