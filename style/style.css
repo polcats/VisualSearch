@@ -10,7 +10,7 @@
 body {
   display: -ms-grid;
   display: grid;
-  background: #eee;
+  background: #222;
   width: 100vw;
   height: 100vh;
       grid-template-areas: "menu" "container";
@@ -80,7 +80,7 @@ body #cell-table {
 }
 
 #cell-container #cell-table {
-  background: #222;
+  background: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -99,7 +99,7 @@ body #cell-table {
 }
 
 #cell-container #cell-table .path {
-  background: #77c9d4;
+  background: #111;
 }
 
 #cell-container #cell-table .blocked {
