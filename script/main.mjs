@@ -44,7 +44,8 @@ let aGrid = [];
         class: "drag-icon",
         src: "images/icons/start.png",
         draggable: "true",
-        id: "start-icon"
+        id: "start-icon",
+        title: "Drag me!"
     });
     $("td#" + aSrc.row + "-" + aSrc.col).append(aSrcIcon);
 
@@ -52,7 +53,8 @@ let aGrid = [];
         class: "drag-icon",
         src: "images/icons/finish.png",
         draggable: "true",
-        id: "goal-icon"
+        id: "goal-icon",
+        title: "Drag me!"
     });
     $("td#" + aDest.row + "-" + aDest.col).append(aDestIcon);
 })();
