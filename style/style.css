@@ -57,6 +57,10 @@ body #cell-table {
   margin-right: 10px;
 }
 
+#menu-container #buttons input[type='button']:focus {
+  outline: none;
+}
+
 #menu-container #buttons input[type='button']:hover {
   background: greenyellow;
   color: #000;

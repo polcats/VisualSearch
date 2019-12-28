@@ -50,6 +50,10 @@ body {
             margin-right: 10px;
         }
 
+        #{$button}:focus {
+            outline: none;
+        }
+
         #{$button}:hover {
             background: greenyellow;
             color: #000;
