@@ -42,7 +42,6 @@ class Interactions {
 
     currentDragged = "";
     static drag(ev, id) {
-        // console.log(ev.target);
         this.currentDragged = id;
         ev.dataTransfer.setData(id, ev.target.id);
     }
@@ -50,8 +49,10 @@ class Interactions {
     static drop(ev, aSrc, aDest) {
         ev.preventDefault();
 
-        // disable dropping the icons in the same cell
-        if ("IMG" === ev.target.tagName || 1 === ev.target.childNodes.length) {
+        let target = ev.target;
+
+        // disable dropping the icons in the same cell or in bloced cells
+        if ("IMG" === target.tagName || target.childNodes.length || $(target).hasClass("blocked")) {
             return;
         }
 
@@ -64,13 +65,11 @@ class Interactions {
             return;
         }
 
-        ev.target.appendChild(currentIcon);
+        target.appendChild(currentIcon);
 
         let parentId = currentIcon.parentNode.id;
         let cellIndices = parentId.split("-");
-
         let newPosition = new CellPosition(cellIndices[0], cellIndices[1]);
-
         if (currentIcon.id == "start-icon") {
             aSrc.row = newPosition.row;
             aSrc.col = newPosition.col;
