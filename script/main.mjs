@@ -62,7 +62,13 @@ let aGrid = [];
 (function setElementEvents() {
     // Adding blocks
     let $blocked = $(".table-cell").mousedown(function() {
+        // add-block mode is off
         if (!$("input#add-block").hasClass("active-button")) {
+            return;
+        }
+
+        // disable adding blocks in icon locations
+        if (1 === this.childNodes.length) {
             return;
         }
 
@@ -72,6 +78,11 @@ let aGrid = [];
         aGrid[cellIndices[0]][cellIndices[1]] = flag ? 1 : 0;
 
         $blocked.on("mouseenter.blocked", function() {
+            // disable adding blocks in icon locations
+            if (1 === this.childNodes.length) {
+                return;
+            }
+
             $(this).toggleClass("blocked", flag);
 
             let cellIndices = this.id.split("-");
@@ -86,15 +97,7 @@ let aGrid = [];
     // Icon drag-and-drop
     $(".table-cell")
         .on("drop", function() {
-            let result = Interactions.drop(event);
-
-            if (result.length) {
-                if ("start-icon" == result[0]) {
-                    aSrc = result[1];
-                } else if ("goal-icon" == result[0]) {
-                    aDest = result[1];
-                }
-            }
+            Interactions.drop(event, aSrc, aDest);
         })
         .on("dragover", function() {
             Interactions.allowDrop(event);

@@ -46,31 +46,37 @@ class Interactions {
         ev.dataTransfer.setData(id, ev.target.id);
     }
 
-    static drop(ev) {
+    static drop(ev, aSrc, aDest) {
+        ev.preventDefault();
+
+        let target = ev.target;
+
+        // disable dropping the icons in the same cell or in bloced cells
+        if ("IMG" === target.tagName || target.childNodes.length || $(target).hasClass("blocked")) {
+            return;
+        }
+
         this.clearPaths();
 
-        ev.preventDefault();
         let data = ev.dataTransfer.getData(this.currentDragged);
         let currentIcon = document.getElementById(data);
 
-        let result = [];
         if (null === currentIcon) {
-            return result;
+            return;
         }
 
-        ev.target.appendChild(currentIcon);
+        target.appendChild(currentIcon);
 
         let parentId = currentIcon.parentNode.id;
         let cellIndices = parentId.split("-");
-
         let newPosition = new CellPosition(cellIndices[0], cellIndices[1]);
         if (currentIcon.id == "start-icon") {
-            result = [currentIcon.id, newPosition];
+            aSrc.row = newPosition.row;
+            aSrc.col = newPosition.col;
         } else if (currentIcon.id == "goal-icon") {
-            result = [currentIcon.id, newPosition];
+            aDest.row = newPosition.row;
+            aDest.col = newPosition.col;
         }
-
-        return result;
     }
 
     static findPath(aGrid, aSrc, aDest, heuristic) {
