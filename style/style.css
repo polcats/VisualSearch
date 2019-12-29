@@ -115,10 +115,14 @@ body #cell-table {
 
 #cell-container #cell-table .route {
   background: skyblue;
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
 }
 
 #cell-container #cell-table .path {
   background: yellowgreen;
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
 }
 
 #cell-container #cell-table .blocked {

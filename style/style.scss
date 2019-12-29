@@ -106,10 +106,12 @@ body {
 
         .route {
             background: skyblue;
+            transition: background 0.3s;
         }
 
         .path {
             background: yellowgreen;
+            transition: background 0.5s;
         }
         .blocked {
             background: url(../images/icons/brick.png) center center no-repeat;
