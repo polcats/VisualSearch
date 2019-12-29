@@ -42,20 +42,26 @@ class Interactions {
 
     currentDragged = "";
     static drag(ev, id) {
+        // console.log(ev.target);
         this.currentDragged = id;
         ev.dataTransfer.setData(id, ev.target.id);
     }
 
-    static drop(ev) {
+    static drop(ev, aSrc, aDest) {
+        ev.preventDefault();
+
+        // disable dropping the icons in the same cell
+        if ("IMG" === ev.target.tagName || 1 === ev.target.childNodes.length) {
+            return;
+        }
+
         this.clearPaths();
 
-        ev.preventDefault();
         let data = ev.dataTransfer.getData(this.currentDragged);
         let currentIcon = document.getElementById(data);
 
-        let result = [];
         if (null === currentIcon) {
-            return result;
+            return;
         }
 
         ev.target.appendChild(currentIcon);
@@ -64,13 +70,14 @@ class Interactions {
         let cellIndices = parentId.split("-");
 
         let newPosition = new CellPosition(cellIndices[0], cellIndices[1]);
-        if (currentIcon.id == "start-icon") {
-            result = [currentIcon.id, newPosition];
-        } else if (currentIcon.id == "goal-icon") {
-            result = [currentIcon.id, newPosition];
-        }
 
-        return result;
+        if (currentIcon.id == "start-icon") {
+            aSrc.row = newPosition.row;
+            aSrc.col = newPosition.col;
+        } else if (currentIcon.id == "goal-icon") {
+            aDest.row = newPosition.row;
+            aDest.col = newPosition.col;
+        }
     }
 
     static findPath(aGrid, aSrc, aDest, heuristic) {

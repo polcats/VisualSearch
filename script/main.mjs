@@ -86,15 +86,7 @@ let aGrid = [];
     // Icon drag-and-drop
     $(".table-cell")
         .on("drop", function() {
-            let result = Interactions.drop(event);
-
-            if (result.length) {
-                if ("start-icon" == result[0]) {
-                    aSrc = result[1];
-                } else if ("goal-icon" == result[0]) {
-                    aDest = result[1];
-                }
-            }
+            Interactions.drop(event, aSrc, aDest);
         })
         .on("dragover", function() {
             Interactions.allowDrop(event);
