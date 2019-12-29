@@ -70,11 +70,6 @@ body {
             color: #222;
             opacity: 0.5;
         }
-        #{$button}[disabled]:hover {
-            // background: #555;
-            // color: #222;
-            // opacity: 0.5;
-        }
     }
 }
 
@@ -111,13 +106,29 @@ body {
 
         .route {
             background: skyblue;
+            transition: background 0.3s;
         }
 
         .path {
             background: yellowgreen;
+            transition: background 0.5s;
         }
         .blocked {
             background: url(../images/icons/brick.png) center center no-repeat;
+            animation-name: blocked-bg;
+            animation-duration: 0.5s;
         }
+    }
+}
+
+@keyframes blocked-bg {
+    0% {
+        background-size: 45px 45px;
+    }
+    50% {
+        background-size: 55px 55px;
+    }
+    100% {
+        background-size: 45px 45px;
     }
 }
