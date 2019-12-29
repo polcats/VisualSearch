@@ -123,5 +123,33 @@ body #cell-table {
 
 #cell-container #cell-table .blocked {
   background: url(../images/icons/brick.png) center center no-repeat;
+  -webkit-animation-name: blocked-bg;
+          animation-name: blocked-bg;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+@-webkit-keyframes blocked-bg {
+  0% {
+    background-size: 45px 45px;
+  }
+  50% {
+    background-size: 55px 55px;
+  }
+  100% {
+    background-size: 45px 45px;
+  }
+}
+
+@keyframes blocked-bg {
+  0% {
+    background-size: 45px 45px;
+  }
+  50% {
+    background-size: 55px 55px;
+  }
+  100% {
+    background-size: 45px 45px;
+  }
 }
 /*# sourceMappingURL=style.css.map */

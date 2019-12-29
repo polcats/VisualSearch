@@ -113,6 +113,20 @@ body {
         }
         .blocked {
             background: url(../images/icons/brick.png) center center no-repeat;
+            animation-name: blocked-bg;
+            animation-duration: 0.5s;
         }
+    }
+}
+
+@keyframes blocked-bg {
+    0% {
+        background-size: 45px 45px;
+    }
+    50% {
+        background-size: 55px 55px;
+    }
+    100% {
+        background-size: 45px 45px;
     }
 }
