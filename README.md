@@ -28,6 +28,9 @@ Currently an initial barebones implementation.
 <li>[ ] Add warning message if no path is found.</li>
 <li>[ ] Add selection for which heuristic is going to be used.</li>
 <li>[ ] Add animation for actual search.</li>
+<li>[x] Disabled adding blocks in icon locations.</li>
+<li>[x] Disabled moving icons in blocked locations.</li>
+<li>[x] Disabled moving the two icons in the same location.</li>
 <li>[x] Limit interactions on certain states.</li>
 <li>[x] Add path tracing animation.</li>
 <li>[x] Add UI style.</li>
