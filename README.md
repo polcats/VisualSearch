@@ -2,28 +2,28 @@
 
 A visualization of searching algorithms.
 
-Currently an initial barebones implementation.
+# Algorithms
 
-## Algorithms
-
-### Implemented
-
+## Implemented
 <ul>
  <li>A-star Search</li>
+</ul>
+
+## Ongoing
+<ul>
+ <li>Djikstra</li>
 </ul>
 
 ## Heuristics
 
 ### Implemented
-
 <ul>
  <li>Manhattan Distance</li>
  <li>Euclidean Distance</li>
  <li>Diagonal Distance</li>
 </ul>
 
-## Changes
-
+# Changes
 <ul>
 <li>[ ] Add warning message if no path is found.</li>
 <li>[ ] Add selection for which heuristic is going to be used.</li>
@@ -38,7 +38,7 @@ Currently an initial barebones implementation.
 <li>[x] Update icons.</li>
 </ul>
 
-## References
+### References
 
 <ul>
  <li><a href="https://www.geeksforgeeks.org/a-search-algorithm/" target="_blank">A* Search Algorithm</a></li>
