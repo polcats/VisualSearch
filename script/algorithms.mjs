@@ -54,23 +54,19 @@ class Algorithms {
             closedList[i][j] = true;
 
             // Direction Successors
-            let northDirection = new CellPosition(i - 1, j);
-            if ((isGoalFound = Utility.getDirectionSuccessor(i, j, northDirection, dest, cells, openList, closedList, grid, heuristic))) {
+            if ((isGoalFound = Utility.getDirectionSuccessor(i, j, "N", dest, cells, openList, closedList, grid, heuristic))) {
                 break;
             }
 
-            let southDirection = new CellPosition(i + 1, j);
-            if ((isGoalFound = Utility.getDirectionSuccessor(i, j, southDirection, dest, cells, openList, closedList, grid, heuristic))) {
+            if ((isGoalFound = Utility.getDirectionSuccessor(i, j, "S", dest, cells, openList, closedList, grid, heuristic))) {
                 break;
             }
 
-            let eastDirection = new CellPosition(i, j + 1);
-            if ((isGoalFound = Utility.getDirectionSuccessor(i, j, eastDirection, dest, cells, openList, closedList, grid, heuristic))) {
+            if ((isGoalFound = Utility.getDirectionSuccessor(i, j, "E", dest, cells, openList, closedList, grid, heuristic))) {
                 break;
             }
 
-            let westDirection = new CellPosition(i, j - 1);
-            if ((isGoalFound = Utility.getDirectionSuccessor(i, j, westDirection, dest, cells, openList, closedList, grid, heuristic))) {
+            if ((isGoalFound = Utility.getDirectionSuccessor(i, j, "W", dest, cells, openList, closedList, grid, heuristic))) {
                 break;
             }
 
@@ -79,18 +75,15 @@ class Algorithms {
                     break;
                 }
 
-                let northWestDirection = new CellPosition(i - 1, j - 1);
-                if ((isGoalFound = Utility.getDirectionSuccessor(i, j, northWestDirection, dest, cells, openList, closedList, grid, heuristic))) {
+                if ((isGoalFound = Utility.getDirectionSuccessor(i, j, "NW", dest, cells, openList, closedList, grid, heuristic))) {
                     break;
                 }
 
-                let southEastDirection = new CellPosition(i + 1, j + 1);
-                if ((isGoalFound = Utility.getDirectionSuccessor(i, j, southEastDirection, dest, cells, openList, closedList, grid, heuristic))) {
+                if ((isGoalFound = Utility.getDirectionSuccessor(i, j, "SE", dest, cells, openList, closedList, grid, heuristic))) {
                     break;
                 }
 
-                let southWestDirection = new CellPosition(i + 1, j - 1);
-                if ((isGoalFound = Utility.getDirectionSuccessor(i, j, southWestDirection, dest, cells, openList, closedList, grid, heuristic))) {
+                if ((isGoalFound = Utility.getDirectionSuccessor(i, j, "SW", dest, cells, openList, closedList, grid, heuristic))) {
                     break;
                 }
             }

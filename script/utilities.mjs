@@ -39,6 +39,35 @@ class Utility {
         return src.row === dest.row && src.col === dest.col;
     }
 
+    static getDirectionCell(row, col, dir) {
+        switch (dir) {
+            case "N": {
+                return new CellPosition(row - 1, col);
+            }
+            case "S": {
+                return new CellPosition(row + 1, col);
+            }
+            case "E": {
+                return new CellPosition(row, col + 1);
+            }
+            case "W": {
+                return new CellPosition(row, col - 1);
+            }
+            case "NE": {
+                return new CellPosition(row - 1, col + 1);
+            }
+            case "NW": {
+                return new CellPosition(row - 1, col - 1);
+            }
+            case "SE": {
+                return new CellPosition(row + 1, col + 1);
+            }
+            case "SW": {
+                return new CellPosition(row + 1, col - 1);
+            }
+        }
+    }
+
     static getHeuristicValue(heuristic, src, dest) {
         switch (heuristic) {
             case "manhattan": {
@@ -73,6 +102,7 @@ class Utility {
             col = col_tmp;
         }
         path.push(new CellPosition(row, col));
+
         trace(path);
 
         function trace(path) {
@@ -102,6 +132,7 @@ class Utility {
     }
 
     static getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, heuristic) {
+        direction = this.getDirectionCell(i, j, direction);
         if (Utility.isValidPosition(direction)) {
             let currentCell = cells[direction.row][direction.col];
             if (Utility.isGoal(direction, dest)) {
