@@ -39,8 +39,8 @@ class Utility {
         return src.row === dest.row && src.col === dest.col;
     }
 
-    static getDirectionCell(row, col, dir) {
-        switch (dir) {
+    static getDirectionCell(direction, row, col) {
+        switch (direction) {
             case "N": {
                 return new CellPosition(row - 1, col);
             }
@@ -131,17 +131,17 @@ class Utility {
         $(".table-cell").removeClass("route");
     }
 
-    static getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, heuristic) {
-        direction = this.getDirectionCell(i, j, direction);
+    static getDirectionSuccessor(direction, row, col, dest, cells, openList, closedList, grid, heuristic) {
+        direction = this.getDirectionCell(direction, row, col);
         if (Utility.isValidPosition(direction)) {
             let currentCell = cells[direction.row][direction.col];
             if (Utility.isGoal(direction, dest)) {
                 console.log("The destination is found!");
-                currentCell.pRow = i;
-                currentCell.pCol = j;
+                currentCell.pRow = row;
+                currentCell.pCol = col;
                 return true;
             } else if (false == closedList[direction.row][direction.col] && Utility.isNotBlocked(grid, direction)) {
-                let newSrcDistToSuccessor = cells[i][j].srcDistToSuccessor + 1.0;
+                let newSrcDistToSuccessor = cells[row][col].srcDistToSuccessor + 1.0;
                 let newGoalDistToSuccessor = Utility.getHeuristicValue(heuristic, direction, dest);
                 let newHeuristicValue = newSrcDistToSuccessor + newGoalDistToSuccessor;
 
@@ -151,8 +151,8 @@ class Utility {
                     currentCell.srcDistToSuccessor = newSrcDistToSuccessor;
                     currentCell.goalDistToSuccessor = newGoalDistToSuccessor;
                     currentCell.heuristicValue = newHeuristicValue;
-                    currentCell.pRow = i;
-                    currentCell.pCol = j;
+                    currentCell.pRow = row;
+                    currentCell.pCol = col;
                 }
                 return false;
             }
