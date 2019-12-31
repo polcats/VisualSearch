@@ -40,7 +40,6 @@ class Interactions {
         return true;
     }
 
-    currentDragged = "";
     static drag(ev, id) {
         this.currentDragged = id;
         ev.dataTransfer.setData(id, ev.target.id);
@@ -79,10 +78,10 @@ class Interactions {
         }
     }
 
-    static findPath(aGrid, aSrc, aDest, heuristic) {
+    static findPath(aGrid, aSrc, aDest, heuristic, allowedDirections) {
         this.clearPaths();
 
-        let result = Algorithms.aStarSearch(aGrid, aSrc, aDest, heuristic);
+        let result = Algorithms.aStarSearch(aGrid, aSrc, aDest, heuristic, allowedDirections);
 
         if (result != false) {
             Utility.tracePath(result, aDest);

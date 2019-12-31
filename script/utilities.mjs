@@ -17,12 +17,12 @@ class MoveCost {
 }
 
 class Cell {
-    constructor(pRow, pCol, srcDistToSuccessor, goalDistToSuccessor, heuristicValue) {
-        this.pRow = pRow;
-        this.pCol = pCol;
-        this.srcDistToSuccessor = srcDistToSuccessor;
-        this.goalDistToSuccessor = goalDistToSuccessor;
-        this.heuristicValue = heuristicValue;
+    constructor() {
+        this.pRow = -1;
+        this.pCol = -1;
+        this.srcDistToSuccessor = INIT_VALUE;
+        this.goalDistToSuccessor = INIT_VALUE;
+        this.heuristicValue = INIT_VALUE;
     }
 }
 
@@ -37,6 +37,35 @@ class Utility {
 
     static isGoal(src, dest) {
         return src.row === dest.row && src.col === dest.col;
+    }
+
+    static getDirectionCell(direction, row, col) {
+        switch (direction) {
+            case "N": {
+                return new CellPosition(row - 1, col);
+            }
+            case "S": {
+                return new CellPosition(row + 1, col);
+            }
+            case "E": {
+                return new CellPosition(row, col + 1);
+            }
+            case "W": {
+                return new CellPosition(row, col - 1);
+            }
+            case "NE": {
+                return new CellPosition(row - 1, col + 1);
+            }
+            case "NW": {
+                return new CellPosition(row - 1, col - 1);
+            }
+            case "SE": {
+                return new CellPosition(row + 1, col + 1);
+            }
+            case "SW": {
+                return new CellPosition(row + 1, col - 1);
+            }
+        }
     }
 
     static getHeuristicValue(heuristic, src, dest) {
@@ -57,7 +86,6 @@ class Utility {
         $("#" + pos.row + "-" + pos.col).addClass(color);
     }
 
-    static traceRoute = [];
     static tracePath(cells, dest) {
         this.traceRoute = [];
 
@@ -73,6 +101,7 @@ class Utility {
             col = col_tmp;
         }
         path.push(new CellPosition(row, col));
+
         trace(path);
 
         function trace(path) {
@@ -94,6 +123,10 @@ class Utility {
     }
 
     static stopTrace() {
+        if (undefined === this.traceRoute) {
+            return;
+        }
+
         for (let i = 0; i < this.traceRoute.length; ++i) {
             clearTimeout(this.traceRoute[i]);
         }
@@ -101,16 +134,17 @@ class Utility {
         $(".table-cell").removeClass("route");
     }
 
-    static getDirectionSuccessor(i, j, direction, dest, cells, openList, closedList, grid, heuristic) {
+    static getDirectionSuccessor(direction, row, col, dest, cells, openList, closedList, grid, heuristic) {
+        direction = this.getDirectionCell(direction, row, col);
         if (Utility.isValidPosition(direction)) {
             let currentCell = cells[direction.row][direction.col];
             if (Utility.isGoal(direction, dest)) {
                 console.log("The destination is found!");
-                currentCell.pRow = i;
-                currentCell.pCol = j;
+                currentCell.pRow = row;
+                currentCell.pCol = col;
                 return true;
             } else if (false == closedList[direction.row][direction.col] && Utility.isNotBlocked(grid, direction)) {
-                let newSrcDistToSuccessor = cells[i][j].srcDistToSuccessor + 1.0;
+                let newSrcDistToSuccessor = cells[row][col].srcDistToSuccessor + 1.0;
                 let newGoalDistToSuccessor = Utility.getHeuristicValue(heuristic, direction, dest);
                 let newHeuristicValue = newSrcDistToSuccessor + newGoalDistToSuccessor;
 
@@ -120,8 +154,8 @@ class Utility {
                     currentCell.srcDistToSuccessor = newSrcDistToSuccessor;
                     currentCell.goalDistToSuccessor = newGoalDistToSuccessor;
                     currentCell.heuristicValue = newHeuristicValue;
-                    currentCell.pRow = i;
-                    currentCell.pCol = j;
+                    currentCell.pRow = row;
+                    currentCell.pCol = col;
                 }
                 return false;
             }
