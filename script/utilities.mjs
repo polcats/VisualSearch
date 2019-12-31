@@ -17,12 +17,12 @@ class MoveCost {
 }
 
 class Cell {
-    constructor(pRow, pCol, srcDistToSuccessor, goalDistToSuccessor, heuristicValue) {
-        this.pRow = pRow;
-        this.pCol = pCol;
-        this.srcDistToSuccessor = srcDistToSuccessor;
-        this.goalDistToSuccessor = goalDistToSuccessor;
-        this.heuristicValue = heuristicValue;
+    constructor() {
+        this.pRow = -1;
+        this.pCol = -1;
+        this.srcDistToSuccessor = INIT_VALUE;
+        this.goalDistToSuccessor = INIT_VALUE;
+        this.heuristicValue = INIT_VALUE;
     }
 }
 
@@ -86,7 +86,6 @@ class Utility {
         $("#" + pos.row + "-" + pos.col).addClass(color);
     }
 
-    static traceRoute = [];
     static tracePath(cells, dest) {
         this.traceRoute = [];
 
@@ -124,6 +123,10 @@ class Utility {
     }
 
     static stopTrace() {
+        if (undefined === this.traceRoute) {
+            return;
+        }
+
         for (let i = 0; i < this.traceRoute.length; ++i) {
             clearTimeout(this.traceRoute[i]);
         }

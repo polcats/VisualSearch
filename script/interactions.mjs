@@ -40,7 +40,6 @@ class Interactions {
         return true;
     }
 
-    currentDragged = "";
     static drag(ev, id) {
         this.currentDragged = id;
         ev.dataTransfer.setData(id, ev.target.id);

@@ -29,7 +29,7 @@ class Algorithms {
         for (let i = 0; i < ROW; ++i) {
             cells[i] = new Array(COL);
             for (let j = 0; j < COL; ++j) {
-                cells[i][j] = new Cell(-1, -1, INIT_VALUE, INIT_VALUE, INIT_VALUE);
+                cells[i][j] = new Cell();
             }
         }
 
