@@ -1,7 +1,7 @@
 import { ROW, COL, INIT_VALUE, CellPosition, MoveCost, Cell, Utility } from "./utilities.mjs";
 
 class Algorithms {
-    static aStarSearch(grid, src, dest, heuristic) {
+    static aStarSearch(grid, src, dest, heuristic, allowedDirections) {
         if (!Utility.isValidPosition(src) || !Utility.isValidPosition(dest)) {
             console.log("Invalid source or destination.");
             return false;
@@ -74,9 +74,8 @@ class Algorithms {
                 break;
             }
 
-            if ("manhattan" != heuristic) {
-                let northEastDirection = new CellPosition(i - 1, j + 1);
-                if ((isGoalFound = Utility.getDirectionSuccessor(i, j, northEastDirection, dest, cells, openList, closedList, grid, heuristic))) {
+            if ("all" === allowedDirections) {
+                if ((isGoalFound = Utility.getDirectionSuccessor(i, j, "NE", dest, cells, openList, closedList, grid, heuristic))) {
                     break;
                 }
 
