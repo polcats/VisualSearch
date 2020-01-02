@@ -107,6 +107,7 @@ body #cell-table {
   width: 100%;
   height: 100%;
   cursor: pointer;
+  z-index: 1000;
 }
 
 #cell-container #cell-table .option {
@@ -131,6 +132,10 @@ body #cell-table {
           animation-name: blocked-bg;
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
+}
+
+#hidden-container {
+  display: none;
 }
 
 @-webkit-keyframes blocked-bg {

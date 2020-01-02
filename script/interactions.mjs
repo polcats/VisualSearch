@@ -21,6 +21,8 @@ class Interactions {
 
     static clearPaths() {
         $(".table-cell").removeClass("path route");
+        $("#hidden-container").html("");
+        $("#cell-table").css({ "background-image": "none" });
         Utility.stopTrace();
     }
 
@@ -50,7 +52,7 @@ class Interactions {
 
         let target = ev.target;
 
-        // disable dropping the icons in the same cell or in bloced cells
+        // disable dropping the icons in the same cell or in blocked cells
         if ("IMG" === target.tagName || target.childNodes.length || $(target).hasClass("blocked")) {
             return;
         }
@@ -84,7 +86,8 @@ class Interactions {
         let result = Algorithms.aStarSearch(aGrid, aSrc, aDest, heuristic, allowedDirections);
 
         if (result != false) {
-            Utility.tracePath(result, aDest);
+            let path = Utility.tracePath(result, aDest);
+            Utility.createPathLine(path, 70);
         }
     }
 
