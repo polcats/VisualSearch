@@ -52,7 +52,7 @@ class Interactions {
 
         let target = ev.target;
 
-        // disable dropping the icons in the same cell or in bloced cells
+        // disable dropping the icons in the same cell or in blocked cells
         if ("IMG" === target.tagName || target.childNodes.length || $(target).hasClass("blocked")) {
             return;
         }
