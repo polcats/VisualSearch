@@ -82,10 +82,6 @@ class Utility {
         }
     }
 
-    static setCellColor(pos, color) {
-        $("#" + pos.row + "-" + pos.col).addClass(color);
-    }
-
     static tracePath(cells, dest) {
         this.traceRoute = [];
 
@@ -95,14 +91,16 @@ class Utility {
         let path = [];
         while (!(cells[row][col].pRow == row && cells[row][col].pCol == col)) {
             path.push(new CellPosition(row, col));
+
             let row_tmp = cells[row][col].pRow;
             let col_tmp = cells[row][col].pCol;
+
             row = row_tmp;
             col = col_tmp;
         }
         path.push(new CellPosition(row, col));
 
-        trace(path);
+        trace(JSON.parse(JSON.stringify(path)));
 
         function trace(path) {
             if (!path.length) {
@@ -112,14 +110,50 @@ class Utility {
                 return;
             }
 
-            Utility.setCellColor(path.pop(), "route");
-
             Utility.traceRoute.push(
                 setTimeout(function() {
                     trace(path);
                 }, 100)
             );
         }
+
+        return path;
+    }
+
+    static createPathLine(path, cellSize) {
+        let directions = "";
+
+        let cellMiddle = cellSize / 2;
+        for (let i = path.length - 1; i >= 0; --i) {
+            let w = path[i].row * cellSize + cellMiddle;
+            let h = path[i].col * cellSize + cellMiddle;
+            directions += h + " " + w + " ";
+        }
+        directions.trim();
+
+        const tableW = cellSize * COL;
+        const tableH = cellSize * ROW;
+        const lineLength = cellSize * path.length * 3;
+
+        $("#hidden-container").html("");
+        let pathSvg = $(
+            "<svg id='svg' xmlns=http://www.w3.org/2000/svg width=" +
+                tableW +
+                " height=" +
+                tableH +
+                "><polyline id= 'path' points='" +
+                directions +
+                "'  /><style>#path { fill: none; stroke-width: 5px; stroke: greenyellow; stroke-miterlimit: 0; stroke-dasharray: " +
+                lineLength +
+                "; stroke-dashoffset: " +
+                lineLength +
+                "; animation: drawpath 2s linear forwards;} @keyframes drawpath { to { stroke-dashoffset: 0; }}</style></svg>"
+        );
+        $("#hidden-container").append(pathSvg);
+
+        var encodedSvg = btoa(new XMLSerializer().serializeToString(document.getElementById("svg")));
+
+        $("#cell-table").css({ "background-image": "url('data:image/svg+xml;base64," + encodedSvg + "')" });
     }
 
     static stopTrace() {
