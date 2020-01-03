@@ -202,16 +202,4 @@ body #cell-table {
     height: 100%;
   }
 }
-
-@-webkit-keyframes drawpath {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes drawpath {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
 /*# sourceMappingURL=style.css.map */
