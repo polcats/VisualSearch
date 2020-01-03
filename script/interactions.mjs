@@ -21,7 +21,6 @@ class Interactions {
 
     static clearPaths() {
         $(".table-cell").removeClass("path route");
-        $("#hidden-container").html("");
         $("#cell-table").css({ "background-image": "none" });
         Utility.stopTrace();
     }
