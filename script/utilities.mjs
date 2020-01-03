@@ -123,10 +123,12 @@ class Utility {
     static createPathLine(path, cellSize) {
         let directions = "";
 
-        let cellMiddle = cellSize / 2;
+        const cellMiddle = cellSize / 2;
+        let w = 0,
+            h = 0;
         for (let i = path.length - 1; i >= 0; --i) {
-            let w = path[i].row * cellSize + cellMiddle;
-            let h = path[i].col * cellSize + cellMiddle;
+            w = path[i].row * cellSize + cellMiddle;
+            h = path[i].col * cellSize + cellMiddle;
             directions += h + " " + w + " ";
         }
         directions.trim();
@@ -135,9 +137,15 @@ class Utility {
         const tableH = cellSize * ROW;
         const lineLength = cellSize * path.length * 3;
 
-        $("#hidden-container").html("");
+        // create a random seed to make generated svgs unique
+        // this is to avoid the cached svg from being reused
+        // reused svgs doesn't replay the animation
+        let randomSeed = Math.random();
+
         let pathSvg = $(
-            "<svg id='svg' xmlns=http://www.w3.org/2000/svg width=" +
+            "<svg id='path-svg' name='" +
+                randomSeed +
+                "'  xmlns=http://www.w3.org/2000/svg width=" +
                 tableW +
                 " height=" +
                 tableH +
@@ -149,10 +157,9 @@ class Utility {
                 lineLength +
                 "; animation: drawpath 2s linear forwards;} @keyframes drawpath { to { stroke-dashoffset: 0; }}</style></svg>"
         );
-        $("#hidden-container").append(pathSvg);
+        $("#path-svg").replaceWith(pathSvg);
 
-        var encodedSvg = btoa(new XMLSerializer().serializeToString(document.getElementById("svg")));
-
+        const encodedSvg = btoa(new XMLSerializer().serializeToString(document.getElementById("path-svg")));
         $("#cell-table").css({ "background-image": "url('data:image/svg+xml;base64," + encodedSvg + "')" });
     }
 
