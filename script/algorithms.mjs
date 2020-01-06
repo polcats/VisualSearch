@@ -1,4 +1,4 @@
-import { ROW, COL, INIT_VALUE, CellPosition, MoveCost, Cell, Utility } from "./utilities.mjs";
+import { ROW, COL, CellPosition, MoveCost, Cell, Utility } from "./utilities.mjs";
 
 class Algorithms {
     static aStarSearch(grid, src, dest, heuristic, allowedDirections) {
