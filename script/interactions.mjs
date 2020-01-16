@@ -12,11 +12,13 @@ class Interactions {
         if (addBlockActive) {
             this.clearPaths();
             $("#find-path").attr("disabled", "disabled");
+            $("#find-path").attr("title", "Currently adding blocks.");
 
             return;
         }
 
         $("#find-path").removeAttr("disabled");
+        $("#find-path").removeAttr("title");
     }
 
     static clearPaths() {
@@ -84,10 +86,13 @@ class Interactions {
 
         let result = Algorithms.aStarSearch(aGrid, aSrc, aDest, heuristic, allowedDirections);
 
-        if (result != false) {
-            let path = Utility.tracePath(result, aDest);
-            Utility.createPathLine(path, 70);
+        if (!result) {
+            alert("No path found!");
+            return;
         }
+
+        let path = Utility.tracePath(result, aDest);
+        Utility.createPathLine(path, 70);
     }
 
     static clearGrid(aGrid) {
