@@ -127,6 +127,10 @@ let aGrid = [];
 
     // Buttons
     $("#find-path").on("click", function() {
+        const algorithm = $("select#algorithm")
+            .children("option:selected")
+            .val();
+
         const heuristic = $("select#heuristics")
             .children("option:selected")
             .val();
@@ -135,7 +139,7 @@ let aGrid = [];
             .children("option:selected")
             .val();
 
-        Interactions.findPath(aGrid, aSrc, aDest, heuristic, movement);
+        Interactions.findPath(aGrid, aSrc, aDest, heuristic, movement, algorithm);
     });
 
     $("#add-block").on("click", function() {
