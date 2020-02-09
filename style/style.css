@@ -40,11 +40,15 @@ body #cell-table {
   text-align: center;
   display: -ms-grid;
   display: grid;
-      grid-template-areas: "movements" "heuristics" "buttons";
+      grid-template-areas: "notes" "algorithms" "movements" "heuristics" "buttons";
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   margin: auto;
+}
+
+#menu-container #algorithms {
+  grid-area: "algorithms";
 }
 
 #menu-container #movement-options {
@@ -52,8 +56,19 @@ body #cell-table {
 }
 
 #menu-container #heuristic-options {
-  margin: auto;
   grid-area: "heuristics";
+}
+
+#menu-container #notes {
+  padding: 10px;
+  font-size: 12px;
+  color: #fff;
+  grid-area: "notes";
+}
+
+#menu-container #notes ul li {
+  text-align: left;
+  margin-top: 5px;
 }
 
 #menu-container #buttons {

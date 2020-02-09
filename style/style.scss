@@ -37,19 +37,38 @@ body {
     text-align: center;
     display: grid;
     grid-template-areas:
+        "notes"
+        "algorithms"
         "movements"
         "heuristics"
         "buttons";
     align-items: center;
     margin: auto;
 
+    #algorithms {
+        grid-area: "algorithms";
+    }
+
     #movement-options {
         grid-area: "movements";
     }
 
     #heuristic-options {
-        margin: auto;
         grid-area: "heuristics";
+    }
+
+    #notes {
+        padding: 10px;
+        font-size: 12px;
+        color: #fff;
+        grid-area: "notes";
+
+        ul {
+            li {
+                text-align: left;
+                margin-top: 5px;
+            }
+        }
     }
 
     #buttons {
