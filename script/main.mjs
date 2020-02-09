@@ -127,7 +127,15 @@ let aGrid = [];
 
     // Buttons
     $("#find-path").on("click", function() {
-        Interactions.findPath(aGrid, aSrc, aDest, "euclidean", "all");
+        const heuristic = $("select#heuristics")
+            .children("option:selected")
+            .val();
+
+        const movement = $("select#movements")
+            .children("option:selected")
+            .val();
+
+        Interactions.findPath(aGrid, aSrc, aDest, heuristic, movement);
     });
 
     $("#add-block").on("click", function() {
