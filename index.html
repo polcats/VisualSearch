@@ -6,6 +6,21 @@
     </head>
     <body>
         <div id="menu-container">
+            <div id="movement-options">
+                <label>Allowed Movement</label>
+                <select id="movements">
+                    <option value="cross">Vertical and Horizontal</option>
+                    <option value="all">Vertical, Horizontal, and Diagonal</option>
+                </select>
+            </div>
+            <div id="heuristic-options">
+                <label>Heuristic</label>
+                <select id="heuristics">
+                    <option value="diagonal">Diagonal</option>
+                    <option value="euclidean">Euclidean</option>
+                    <option value="manhattan">Manhanttan Distance</option>
+                </select>
+            </div>
             <div id="buttons">
                 <input id="find-path" type="button" value="Find Path" />
                 <input id="add-block" type="button" value="Add Blocks" />
