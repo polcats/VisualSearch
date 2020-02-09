@@ -81,10 +81,20 @@ class Interactions {
         }
     }
 
-    static findPath(aGrid, aSrc, aDest, heuristic, allowedDirections) {
+    static findPath(aGrid, aSrc, aDest, heuristic, allowedDirections, algorithm) {
         this.clearPaths();
 
-        let result = Algorithms.aStarSearch(aGrid, aSrc, aDest, heuristic, allowedDirections);
+        let result = false;
+        switch (algorithm) {
+            case "astar": {
+                result = Algorithms.aStarSearch(aGrid, aSrc, aDest, heuristic, allowedDirections);
+                break;
+            }
+            default: {
+                alert("Selected algorithm is not found!");
+                return;
+            }
+        }
 
         if (!result) {
             alert("No path found!");
